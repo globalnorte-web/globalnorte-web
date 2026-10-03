@@ -1,0 +1,68 @@
+---
+// src/pages/politica-de-privacidad.astro
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { siteData } from '../data/company';
+---
+
+<Layout
+  title={`Política de Privacidad | ${siteData.name}`}
+  description="Política de tratamiento de datos personales de EG Globalnorte, conforme a la Ley N° 29733."
+>
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4">
+      <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-2 block">Legal</span>
+      <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-8">Política de Privacidad y Tratamiento de Datos Personales</h1>
+
+      <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed space-y-6 text-sm md:text-base">
+        <p>
+          {siteData.razonSocial}, identificada con RUC {siteData.ruc} (en adelante, "{siteData.name}"), con domicilio en {siteData.contact.address}, es responsable del tratamiento de los datos personales que usted nos proporciona a través de este sitio web, conforme a la Ley N° 29733, Ley de Protección de Datos Personales, y su reglamento.
+        </p>
+
+        <h2 class="text-xl font-bold text-slate-900 pt-4">1. Datos que recopilamos</h2>
+        <p>A través de nuestro panel de cotización y del Libro de Reclamaciones, podemos recopilar:</p>
+        <ul class="list-disc pl-6 space-y-1">
+          <li>Nombre completo o razón social</li>
+          <li>Documento de identidad (DNI) o RUC</li>
+          <li>Teléfono y correo electrónico</li>
+          <li>Dirección o ciudad del proyecto</li>
+          <li>Archivos que usted adjunte voluntariamente (planos, expedientes técnicos)</li>
+        </ul>
+
+        <h2 class="text-xl font-bold text-slate-900 pt-4">2. Finalidad del tratamiento</h2>
+        <p>Usamos sus datos exclusivamente para:</p>
+        <ul class="list-disc pl-6 space-y-1">
+          <li>Elaborar y enviarle cotizaciones de productos</li>
+          <li>Atender consultas, reclamos o quejas registradas en el Libro de Reclamaciones</li>
+          <li>Coordinar la entrega o despacho de materiales</li>
+          <li>Responder consultas realizadas por WhatsApp, correo o el asistente virtual del sitio</li>
+        </ul>
+        <p>No utilizamos sus datos para fines distintos a los aquí descritos, ni los vendemos ni cedemos a terceros, salvo obligación legal.</p>
+
+        <h2 class="text-xl font-bold text-slate-900 pt-4">3. Cómo se envían sus datos</h2>
+        <p>
+          Nuestro panel de cotización y el Libro de Reclamaciones no almacenan su información en un servidor: los datos que usted completa se envían directamente a nuestro WhatsApp ({siteData.contact.displayPhone}) o correo electrónico ({siteData.contact.email}) mediante su propio dispositivo, cuando usted confirma el envío.
+        </p>
+
+        <h2 class="text-xl font-bold text-slate-900 pt-4">4. Conservación de datos</h2>
+        <p>
+          Conservamos los reclamos y quejas registrados por el plazo que exige la normativa de protección al consumidor (no menor a dos años). Las cotizaciones se conservan mientras dure la relación comercial o el tiempo necesario para atender su solicitud.
+        </p>
+
+        <h2 class="text-xl font-bold text-slate-900 pt-4">5. Sus derechos (ARCO)</h2>
+        <p>
+          Usted tiene derecho a acceder, rectificar, cancelar u oponerse (derechos ARCO) al tratamiento de sus datos personales. Para ejercerlos, escríbanos a {siteData.contact.email} indicando su solicitud.
+        </p>
+
+        <h2 class="text-xl font-bold text-slate-900 pt-4">6. Contacto</h2>
+        <p>
+          Para cualquier consulta sobre esta política, puede comunicarse al {siteData.contact.displayPhone} o al correo {siteData.contact.email}.
+        </p>
+
+        <p class="text-xs text-slate-400 pt-6">Última actualización: {new Date().toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

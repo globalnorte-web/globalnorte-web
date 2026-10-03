@@ -1,0 +1,301 @@
+---
+// src/pages/libro-de-reclamaciones.astro
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { siteData } from '../data/company';
+
+const whatsappPhone = siteData.contact.phone;
+const email = siteData.contact.email;
+---
+
+<Layout
+  title={`Libro de Reclamaciones | ${siteData.name}`}
+  description="Registra tu reclamo o queja conforme al Libro de Reclamaciones establecido por el Código de Protección y Defensa del Consumidor."
+>
+  <section class="py-16 md:py-20 bg-white min-h-screen">
+    <div class="max-w-3xl mx-auto px-4">
+
+      <!-- Encabezado -->
+      <div class="mb-10 text-center">
+        <span class="inline-block bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
+          Libro de Reclamaciones Virtual
+        </span>
+        <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">Registra tu Reclamo o Queja</h1>
+        <p class="text-slate-600 leading-relaxed">
+          Conforme a lo establecido en el Código de Protección y Defensa del Consumidor (Ley N° 29571) y su reglamento,
+          {siteData.name} pone a tu disposición este Libro de Reclamaciones Virtual.
+        </p>
+      </div>
+
+      <!-- Datos del establecimiento -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-10 text-sm">
+        <h2 class="font-bold text-slate-800 mb-3 uppercase text-xs tracking-wider">Identificación del Establecimiento</h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 text-slate-600">
+          <div><dt class="inline font-semibold text-slate-700">Razón social: </dt><dd class="inline">{siteData.razonSocial}</dd></div>
+          <div><dt class="inline font-semibold text-slate-700">RUC: </dt><dd class="inline">{siteData.ruc}</dd></div>
+          <div class="sm:col-span-2"><dt class="inline font-semibold text-slate-700">Dirección: </dt><dd class="inline">{siteData.contact.address}</dd></div>
+        </dl>
+      </div>
+
+      <!-- ========================= -->
+      <!-- VISTA 1: FORMULARIO       -->
+      <!-- ========================= -->
+      <form id="complaint-form" class="space-y-8">
+
+        <!-- Tipo: Reclamo o Queja -->
+        <div>
+          <label class="block font-bold text-slate-800 mb-2">Tipo de registro *</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="flex items-start gap-3 border border-slate-200 rounded-lg p-4 cursor-pointer has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+              <input type="radio" name="tipo" value="Reclamo" required class="mt-1 accent-blue-600" />
+              <span>
+                <span class="block font-bold text-slate-800">Reclamo</span>
+                <span class="block text-xs text-slate-500">Disconformidad relacionada al producto o servicio.</span>
+              </span>
+            </label>
+            <label class="flex items-start gap-3 border border-slate-200 rounded-lg p-4 cursor-pointer has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+              <input type="radio" name="tipo" value="Queja" required class="mt-1 accent-blue-600" />
+              <span>
+                <span class="block font-bold text-slate-800">Queja</span>
+                <span class="block text-xs text-slate-500">Disconformidad con la atención al público.</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Datos del consumidor -->
+        <div>
+          <h2 class="font-bold text-slate-800 mb-4 uppercase text-xs tracking-wider border-b border-slate-200 pb-2">Datos del Consumidor Reclamante</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium text-slate-700 mb-1">Nombre completo *</label>
+              <input type="text" name="nombre" required class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Tipo de documento *</label>
+              <select name="tipoDocumento" required class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="DNI">DNI</option>
+                <option value="Carné de Extranjería">Carné de Extranjería</option>
+                <option value="Pasaporte">Pasaporte</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">N° de documento *</label>
+              <input type="text" name="numeroDocumento" required class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Teléfono</label>
+              <input type="tel" name="telefono" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Correo electrónico *</label>
+              <input type="email" name="correo" required class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium text-slate-700 mb-1">Domicilio (dirección, distrito, provincia, departamento) *</label>
+              <input type="text" name="domicilio" required class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+          </div>
+
+          <!-- Menor de edad -->
+          <div class="mt-4">
+            <label class="flex items-center gap-2 text-sm text-slate-700 font-medium cursor-pointer">
+              <input type="checkbox" id="es-menor" name="esMenor" class="accent-blue-600" />
+              El reclamante es menor de edad
+            </label>
+          </div>
+          <div id="apoderado-fields" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 bg-slate-50 border border-slate-200 rounded-lg p-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Nombre del padre/madre o apoderado</label>
+              <input type="text" name="apoderadoNombre" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">DNI del apoderado</label>
+              <input type="text" name="apoderadoDni" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Identificación del bien contratado -->
+        <div>
+          <h2 class="font-bold text-slate-800 mb-4 uppercase text-xs tracking-wider border-b border-slate-200 pb-2">Identificación del Bien Contratado</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Tipo *</label>
+              <select name="bienTipo" required class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="Producto">Producto</option>
+                <option value="Servicio">Servicio</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Monto reclamado (S/)</label>
+              <input type="number" min="0" step="0.01" name="monto" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium text-slate-700 mb-1">Descripción del producto o servicio *</label>
+              <input type="text" name="bienDescripcion" required placeholder="Ej: Geomembrana HDPE 1.0mm, cotización N° ..." class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Detalle -->
+        <div>
+          <h2 class="font-bold text-slate-800 mb-4 uppercase text-xs tracking-wider border-b border-slate-200 pb-2">Detalle</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Detalle de la reclamación *</label>
+              <textarea name="detalle" required rows="4" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Pedido del consumidor *</label>
+              <textarea name="pedido" required rows="3" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Texto legal -->
+        <p class="text-xs text-slate-500 leading-relaxed bg-slate-50 border border-slate-200 rounded-lg p-4">
+          La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. El proveedor deberá dar respuesta al reclamo en un plazo no mayor a quince (15) días hábiles, plazo que puede ser extendido por otros diez (10) días hábiles previa comunicación al consumidor. Los datos personales registrados no serán utilizados para fines ajenos a este Libro de Reclamaciones.
+        </p>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition-colors shadow-md shadow-blue-500/20"
+        >
+          Registrar Reclamo
+        </button>
+      </form>
+
+      <!-- ========================= -->
+      <!-- VISTA 2: CONFIRMACIÓN     -->
+      <!-- ========================= -->
+      <div id="complaint-confirmation" class="hidden">
+        <div class="border-2 border-dashed border-slate-300 rounded-2xl p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div>
+              <h2 class="text-xl font-black text-slate-900">Constancia de Registro</h2>
+              <p class="text-sm text-slate-500">N° de reclamo: <span id="claim-number" class="font-bold text-slate-800"></span></p>
+            </div>
+          </div>
+
+          <pre id="claim-summary" class="whitespace-pre-wrap text-sm text-slate-700 bg-slate-50 border border-slate-200 rounded-lg p-4 font-sans"></pre>
+
+          <p class="text-xs text-slate-500 leading-relaxed mt-4">
+            La confirmación de este registro expresa únicamente la recepción del mismo, mas no la aceptación de su contenido.
+            Guarda o imprime esta constancia como comprobante.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+            <button id="btn-print" type="button" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 rounded-xl transition-colors text-sm">
+              Imprimir / Guardar PDF
+            </button>
+            <a id="btn-email" href="#" class="text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors text-sm">
+              Enviar por Correo
+            </a>
+            <a id="btn-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition-colors text-sm">
+              Enviar Copia por WhatsApp
+            </a>
+          </div>
+          <p class="text-xs text-slate-400 mt-3 text-center">
+            Al hacer clic en "Enviar por Correo" se abrirá tu programa de correo con el mensaje ya redactado: solo debes presionar Enviar.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script define:vars={{ whatsappPhone, email }}>
+  const form = document.getElementById('complaint-form');
+  const confirmationView = document.getElementById('complaint-confirmation');
+  const esMenorCheckbox = document.getElementById('es-menor');
+  const apoderadoFields = document.getElementById('apoderado-fields');
+
+  // Mostrar/ocultar campos de apoderado
+  if (esMenorCheckbox && apoderadoFields) {
+    esMenorCheckbox.addEventListener('change', () => {
+      apoderadoFields.classList.toggle('hidden', !esMenorCheckbox.checked);
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      const get = (key) => (data.get(key) || '').toString().trim();
+
+      // Número de reclamo correlativo simple, basado en fecha y hora
+      const now = new Date();
+      const pad = (n) => n.toString().padStart(2, '0');
+      const claimNumber = `GN-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+      const fechaTexto = now.toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      const esMenor = get('esMenor') === 'on';
+
+      const lines = [
+        `Tipo: ${get('tipo')}`,
+        `Fecha: ${fechaTexto}`,
+        '',
+        '--- Datos del consumidor ---',
+        `Nombre: ${get('nombre')}`,
+        `Documento: ${get('tipoDocumento')} ${get('numeroDocumento')}`,
+        `Teléfono: ${get('telefono') || '-'}`,
+        `Correo: ${get('correo')}`,
+        `Domicilio: ${get('domicilio')}`,
+      ];
+
+      if (esMenor) {
+        lines.push(
+          '',
+          '--- Datos del apoderado (menor de edad) ---',
+          `Nombre: ${get('apoderadoNombre') || '-'}`,
+          `DNI: ${get('apoderadoDni') || '-'}`
+        );
+      }
+
+      lines.push(
+        '',
+        '--- Bien contratado ---',
+        `Tipo: ${get('bienTipo')}`,
+        `Descripción: ${get('bienDescripcion')}`,
+        `Monto reclamado: ${get('monto') ? 'S/ ' + get('monto') : 'No especifica'}`,
+        '',
+        '--- Detalle ---',
+        `Reclamo/Queja: ${get('detalle')}`,
+        `Pedido del consumidor: ${get('pedido')}`
+      );
+
+      const summaryText = lines.join('\n');
+
+      // Rellenar la vista de confirmación
+      document.getElementById('claim-number').textContent = claimNumber;
+      document.getElementById('claim-summary').textContent = summaryText;
+
+      // Botón de correo (mailto pre-rellenado)
+      const subject = encodeURIComponent(`Libro de Reclamaciones - ${get('tipo')} N° ${claimNumber}`);
+      const body = encodeURIComponent(`N° de reclamo: ${claimNumber}\n\n${summaryText}`);
+      document.getElementById('btn-email').href = `mailto:${email}?subject=${subject}&body=${body}`;
+
+      // Botón de WhatsApp (copia de respaldo)
+      const waText = encodeURIComponent(`*Libro de Reclamaciones*\nN° ${claimNumber}\n\n${summaryText}`);
+      document.getElementById('btn-whatsapp').href = `https://wa.me/${whatsappPhone}?text=${waText}`;
+
+      // Cambiar de vista
+      form.classList.add('hidden');
+      confirmationView.classList.remove('hidden');
+      confirmationView.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  const printBtn = document.getElementById('btn-print');
+  if (printBtn) {
+    printBtn.addEventListener('click', () => window.print());
+  }
+</script>

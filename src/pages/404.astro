@@ -1,0 +1,28 @@
+---
+// src/pages/404.astro
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { siteData } from '../data/company';
+---
+
+<Layout title={`Página no encontrada | ${siteData.name}`} description="La página que buscas no existe.">
+  <section class="min-h-[70vh] flex items-center justify-center bg-white px-4">
+    <div class="text-center max-w-lg">
+      <p class="text-blue-500 font-black text-7xl md:text-8xl mb-4">404</p>
+      <h1 class="text-2xl md:text-3xl font-black text-slate-900 mb-4">Esta página no existe</h1>
+      <p class="text-slate-600 mb-10 leading-relaxed">
+        Puede que el enlace esté roto o que la página se haya movido. Vuelve al inicio o revisa nuestro catálogo de geosintéticos, tuberías y equipos de termofusión.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3.5 rounded-xl text-sm transition-colors">
+          Volver al Inicio
+        </a>
+        <a href="/#catalogo" class="border border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600 font-bold px-8 py-3.5 rounded-xl text-sm transition-colors">
+          Ver Catálogo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

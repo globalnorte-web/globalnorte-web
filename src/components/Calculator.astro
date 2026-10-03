@@ -1,0 +1,372 @@
+---
+// src/components/Calculator.astro
+---
+
+<section id="calculadora" class="py-20 bg-slate-50 border-t border-slate-100">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-2 block">Herramienta Técnica</span>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">Calculadora de Materiales</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto">Estima cuánto necesitas para tu proyecto y agrégalo directo a tu cotización.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex justify-center gap-2 mb-8">
+      <button id="tab-geomembrana" class="calc-tab px-6 py-2.5 rounded-xl text-sm font-bold transition-colors bg-blue-600 text-white shadow-md">Geomembrana</button>
+      <button id="tab-tuberia" class="calc-tab px-6 py-2.5 rounded-xl text-sm font-bold transition-colors bg-white text-slate-600 border border-slate-200">Tubería HDPE</button>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 md:p-8">
+
+      <!-- ============== PANEL GEOMEMBRANA ============== -->
+      <div id="panel-geomembrana">
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Largo del área (m)</label>
+            <input type="number" min="0" step="0.1" id="geo-largo" placeholder="Ej. 50" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Ancho del área (m)</label>
+            <input type="number" min="0" step="0.1" id="geo-ancho" placeholder="Ej. 20" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Espesor deseado</label>
+            <select id="geo-espesor" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="0.75">0.75 mm</option>
+              <option value="0.80">0.80 mm</option>
+              <option value="1.00">1.00 mm</option>
+              <option value="1.50">1.50 mm</option>
+              <option value="2.00">2.00 mm</option>
+              <option value="2.50">2.50 mm</option>
+              <option value="3.00">3.00 mm</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="geo-calcular" type="button" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-xl transition-colors text-sm">Calcular</button>
+
+        <div id="geo-resultado" class="hidden mt-6 bg-slate-50 border border-slate-200 rounded-xl p-5">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-4">
+            <div>
+              <p class="text-xs text-slate-500 font-bold uppercase">Área a cubrir</p>
+              <p id="geo-area-total" class="text-xl font-black text-slate-900">-</p>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-bold uppercase">Con margen 10%</p>
+              <p id="geo-area-margen" class="text-xl font-black text-blue-600">-</p>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-bold uppercase">m² por rollo</p>
+              <p id="geo-area-rollo" class="text-xl font-black text-slate-900">-</p>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-bold uppercase">Rollos estimados</p>
+              <p id="geo-rollos" class="text-xl font-black text-emerald-600">-</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed mb-4">
+            Cálculo referencial con ancho de rollo de 7 m (el mínimo del rango disponible, 7-8 m) y 10% adicional por traslape y soldadura. Para proyectos con geometría irregular, coordina el diseño de paños con nuestro asesor técnico.
+          </p>
+          <button id="geo-add-quote" type="button" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition-colors text-sm">
+            Agregar esta estimación a mi cotización
+          </button>
+        </div>
+      </div>
+
+      <!-- ============== PANEL TUBERÍA ============== -->
+      <div id="panel-tuberia" class="hidden">
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Norma</label>
+            <select id="tub-norma" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="ntp">NTP ISO 4427-2 (PE80/PE100)</option>
+              <option value="astm">ASTM F714 (PE3608/PE4710)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Diámetro nominal</label>
+            <select id="tub-diametro" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">SDR (presión requerida)</label>
+            <select id="tub-sdr" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></select>
+          </div>
+        </div>
+
+        <div id="tub-resultado" class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center mb-4">
+            <div>
+              <p class="text-xs text-slate-500 font-bold uppercase">Espesor mínimo de pared</p>
+              <p id="tub-espesor" class="text-2xl font-black text-slate-900">-</p>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-bold uppercase" id="tub-presion-label">Presión nominal</p>
+              <p id="tub-presion" class="text-sm font-bold text-blue-600 leading-relaxed">-</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed mb-4">
+            Dato de catálogo según la norma seleccionada. Coordina con tu asesor la presentación disponible (barras o rollos) y la cantidad exacta según los metros lineales de tu proyecto.
+          </p>
+          <button id="tub-add-quote" type="button" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition-colors text-sm">
+            Agregar a mi cotización
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // ---------------------------------------------------------------
+  // Datos reales extraídos de las fichas técnicas (NTP ISO 4427-2, ASTM F714, GM13)
+  // ---------------------------------------------------------------
+
+  // Largo de rollo estándar (m) por espesor de geomembrana — ficha GM13 / Nominal Liso
+  const ROLL_LENGTH_BY_THICKNESS = {
+    "0.75": 400, "0.80": 350, "1.00": 310, "1.50": 210,
+    "2.00": 115, "2.50": 120, "3.00": 100
+  };
+  const ROLL_WIDTH_M = 7; // mínimo del rango 7-8 m, para asegurar cobertura
+
+  // NTP ISO 4427-2 — SDR y espesores por diámetro (mm)
+  const NTP_SDR_LABELS = ["41", "33", "26", "21", "17", "13.6", "11", "9", "7.4", "6"];
+  const NTP_PRESSURE = {
+    "41": { pe80: "PN 3.2 bar (46 PSI)", pe100: "PN 4 bar (58 PSI)" },
+    "33": { pe80: "PN 4 bar (58 PSI)", pe100: "PN 5 bar (73 PSI)" },
+    "26": { pe80: "PN 5 bar (73 PSI)", pe100: "PN 6 bar (87 PSI)" },
+    "21": { pe80: "PN 6 bar (87 PSI)", pe100: "PN 8 bar (116 PSI)" },
+    "17": { pe80: "PN 8 bar (116 PSI)", pe100: "PN 10 bar (145 PSI)" },
+    "13.6": { pe80: "PN 10 bar (145 PSI)", pe100: "PN 12.5 bar (181 PSI)" },
+    "11": { pe80: "PN 12.5 bar (181 PSI)", pe100: "PN 16 bar (232 PSI)" },
+    "9": { pe80: "PN 16 bar (232 PSI)", pe100: "PN 20 bar (290 PSI)" },
+    "7.4": { pe80: "PN 20 bar (290 PSI)", pe100: "PN 25 bar (363 PSI)" },
+    "6": { pe80: "PN 25 bar (363 PSI)", pe100: "—" }
+  };
+  const NTP_TABLE = {
+    "16":  ["-","-","-","-","-","-","-","2.00","2.30","3.00"],
+    "20":  ["-","-","-","-","-","-","2.00","2.30","3.00","3.40"],
+    "25":  ["-","-","-","-","-","2.00","2.30","3.00","3.50","4.20"],
+    "32":  ["-","-","-","-","2.00","2.40","3.00","3.60","4.40","5.40"],
+    "40":  ["-","-","-","2.00","2.40","3.00","3.70","4.50","5.50","6.70"],
+    "50":  ["-","-","2.00","2.40","3.00","3.70","4.60","5.60","6.90","8.30"],
+    "63":  ["-","-","2.50","3.00","3.80","4.70","5.80","7.10","8.60","10.50"],
+    "75":  ["-","-","2.90","3.60","4.50","5.60","6.80","8.40","10.30","12.50"],
+    "90":  ["-","-","3.50","4.30","5.40","6.70","8.20","10.10","12.30","15.00"],
+    "110": ["-","-","4.20","5.30","6.60","8.10","10.00","12.30","15.10","18.30"],
+    "125": ["-","-","4.80","6.00","7.40","9.20","11.40","14.00","17.10","20.80"],
+    "140": ["-","-","5.40","6.70","8.30","10.30","12.70","15.70","19.20","23.30"],
+    "160": ["-","-","6.20","7.70","9.50","11.80","14.60","17.90","21.90","26.60"],
+    "180": ["-","-","6.90","8.60","10.70","13.30","16.40","20.10","24.60","29.90"],
+    "200": ["-","-","7.70","9.60","11.90","14.70","18.20","22.40","27.40","33.20"],
+    "225": ["-","-","8.60","10.80","13.40","16.60","20.50","25.20","30.80","37.40"],
+    "250": ["-","-","9.60","11.90","14.80","18.40","22.70","27.90","34.20","41.50"],
+    "280": ["-","-","10.70","13.40","16.60","20.60","25.40","31.30","38.30","46.50"],
+    "315": ["7.70","9.70","12.10","15.00","18.70","23.20","28.60","35.20","43.10","52.30"],
+    "355": ["8.70","10.90","13.60","16.90","21.10","26.10","32.20","39.70","48.50","59.00"],
+    "400": ["9.80","12.30","15.30","19.10","23.70","29.40","36.30","44.70","54.70","-"],
+    "450": ["11.00","13.80","17.20","21.50","26.70","33.10","40.90","50.30","61.50","-"],
+    "500": ["12.30","15.30","19.10","23.90","29.70","36.80","45.40","55.80","-","-"],
+    "560": ["13.70","17.20","21.40","26.70","33.20","41.20","50.80","62.50","-","-"],
+    "630": ["15.40","19.30","24.10","30.00","37.40","46.30","57.20","70.30","-","-"],
+    "710": ["17.40","21.80","27.20","33.90","42.10","52.20","64.50","79.30","-","-"],
+    "800": ["19.60","24.50","30.60","38.10","47.40","58.80","72.60","89.30","-","-"],
+    "900": ["22.00","27.60","34.40","42.90","53.30","66.20","81.70","-","-","-"],
+    "1000":["24.50","30.60","38.20","47.70","59.30","72.50","90.20","-","-","-"]
+  };
+
+  // ASTM F714 — SDR y espesores por diámetro (pulg / mm)
+  const ASTM_SDR_LABELS = ["41", "32.5", "26", "21", "17", "13.5", "11", "9", "7", "7.3"];
+  const ASTM_PRESSURE = {
+    "41": { pe3608: "40 PSI", pe4710: "50 PSI" },
+    "32.5": { pe3608: "50 PSI", pe4710: "65 PSI" },
+    "26": { pe3608: "65 PSI", pe4710: "80 PSI" },
+    "21": { pe3608: "80 PSI", pe4710: "100 PSI" },
+    "17": { pe3608: "100 PSI", pe4710: "125 PSI" },
+    "13.5": { pe3608: "130 PSI", pe4710: "160 PSI" },
+    "11": { pe3608: "160 PSI", pe4710: "200 PSI" },
+    "9": { pe3608: "200 PSI", pe4710: "250 PSI" },
+    "7": { pe3608: "265 PSI", pe4710: "335 PSI" },
+    "7.3": { pe3608: "255 PSI", pe4710: "315 PSI" }
+  };
+  const ASTM_TABLE = {
+    "4\" / 114.30 mm":  ["2.79","3.51","4.39","5.44","6.73","8.46","10.39","12.70","16.33","15.65"],
+    "5\" / 141.30 mm":  ["3.45","4.34","5.44","6.73","8.31","10.46","12.85","15.70","20.19","19.35"],
+    "6\" / 168.28 mm":  ["4.11","5.18","6.48","8.00","9.91","12.47","15.29","18.69","24.03","23.06"],
+    "7\" / 193.70 mm":  ["4.72","5.97","7.44","9.22","11.40","14.35","17.60","21.51","27.66","26.54"],
+    "8\" / 219.08 mm":  ["5.33","6.73","8.43","10.44","12.88","16.23","19.91","24.33","31.29","30.02"],
+    "10\" / 273.05 mm": ["6.65","8.41","10.49","13.00","16.05","20.22","24.82","30.33","39.01","37.41"],
+    "12\" / 323.85 mm": ["7.87","9.96","12.45","15.42","19.05","23.98","29.44","35.99","46.25","44.37"],
+    "14\" / 355.60 mm": ["8.66","10.95","13.67","16.94","20.93","26.34","32.33","39.52","50.80","48.72"],
+    "16\" / 406.40 mm": ["9.91","12.50","15.62","19.35","23.90","30.10","36.96","45.16","58.06","55.68"],
+    "18\" / 457.20 mm": ["11.15","14.07","17.58","21.77","26.90","33.86","41.55","50.80","65.30","62.64"],
+    "20\" / 508.00 mm": ["12.40","15.62","19.53","24.18","29.87","37.62","46.18","56.44","72.57","-"],
+    "22\" / 558.80 mm": ["13.64","17.20","21.49","26.62","32.87","41.40","50.80","62.08","79.83","-"],
+    "24\" / 609.60 mm": ["14.86","18.75","23.44","29.03","35.86","45.16","55.42","67.74","87.10","-"],
+    "26\" / 660.40 mm": ["16.10","20.32","25.40","31.45","38.84","48.92","60.05","73.38","94.34","-"],
+    "28\" / 711.20 mm": ["17.35","21.89","27.36","33.86","41.83","52.68","64.64","79.02","-","-"],
+    "30\" / 762.00 mm": ["18.59","23.44","29.31","36.30","44.83","56.44","69.27","84.66","-","-"],
+    "32\" / 812.80 mm": ["19.81","25.02","31.27","38.71","47.80","60.20","73.89","90.32","-","-"],
+    "34\" / 863.60 mm": ["21.06","26.57","33.22","41.12","50.80","63.98","78.51","95.96","-","-"],
+    "36\" / 914.40 mm": ["22.3","28.14","35.18","43.54","53.80","67.74","83.13","101.60","-","-"]
+  };
+
+  // ---------------------------------------------------------------
+  // Tabs
+  // ---------------------------------------------------------------
+  const tabGeo = document.getElementById('tab-geomembrana');
+  const tabTub = document.getElementById('tab-tuberia');
+  const panelGeo = document.getElementById('panel-geomembrana');
+  const panelTub = document.getElementById('panel-tuberia');
+
+  function activateTab(tab) {
+    const isGeo = tab === 'geo';
+    panelGeo.classList.toggle('hidden', !isGeo);
+    panelTub.classList.toggle('hidden', isGeo);
+    tabGeo.classList.toggle('bg-blue-600', isGeo);
+    tabGeo.classList.toggle('text-white', isGeo);
+    tabGeo.classList.toggle('bg-white', !isGeo);
+    tabGeo.classList.toggle('text-slate-600', !isGeo);
+    tabGeo.classList.toggle('border', !isGeo);
+    tabGeo.classList.toggle('border-slate-200', !isGeo);
+    tabTub.classList.toggle('bg-blue-600', !isGeo);
+    tabTub.classList.toggle('text-white', !isGeo);
+    tabTub.classList.toggle('bg-white', isGeo);
+    tabTub.classList.toggle('text-slate-600', isGeo);
+    tabTub.classList.toggle('border', isGeo);
+    tabTub.classList.toggle('border-slate-200', isGeo);
+  }
+  tabGeo.addEventListener('click', () => activateTab('geo'));
+  tabTub.addEventListener('click', () => activateTab('tub'));
+
+  // ---------------------------------------------------------------
+  // Geomembrana
+  // ---------------------------------------------------------------
+  const geoLargo = document.getElementById('geo-largo');
+  const geoAncho = document.getElementById('geo-ancho');
+  const geoEspesor = document.getElementById('geo-espesor');
+  const geoResultado = document.getElementById('geo-resultado');
+  let geoLastResult = null;
+
+  document.getElementById('geo-calcular').addEventListener('click', () => {
+    const largo = parseFloat(geoLargo.value);
+    const ancho = parseFloat(geoAncho.value);
+    const espesor = geoEspesor.value;
+
+    if (!largo || !ancho || largo <= 0 || ancho <= 0) {
+      alert('Ingresa el largo y ancho del área a cubrir.');
+      return;
+    }
+
+    const areaTotal = largo * ancho;
+    const areaMargen = areaTotal * 1.10;
+    const largoRollo = ROLL_LENGTH_BY_THICKNESS[espesor];
+    const areaPorRollo = ROLL_WIDTH_M * largoRollo;
+    const rollos = Math.ceil(areaMargen / areaPorRollo);
+
+    document.getElementById('geo-area-total').textContent = areaTotal.toFixed(1) + ' m²';
+    document.getElementById('geo-area-margen').textContent = areaMargen.toFixed(1) + ' m²';
+    document.getElementById('geo-area-rollo').textContent = areaPorRollo.toFixed(0) + ' m²';
+    document.getElementById('geo-rollos').textContent = rollos + (rollos === 1 ? ' rollo' : ' rollos');
+
+    geoLastResult = { areaTotal, areaMargen, rollos, espesor };
+    geoResultado.classList.remove('hidden');
+  });
+
+  document.getElementById('geo-add-quote').addEventListener('click', () => {
+    if (!geoLastResult) return;
+    const { areaMargen, rollos, espesor } = geoLastResult;
+    window.dispatchEvent(new CustomEvent('add-to-quote', {
+      detail: {
+        id: `calc-geomembrana-${espesor}`,
+        name: `Geomembrana HDPE ${espesor}mm (calculada)`,
+        category: 'Geosintéticos',
+        unit: 'm²',
+        quantity: Math.ceil(areaMargen),
+        customInfo: `${rollos} rollo(s) aprox. (ancho 7m). Cantidad en m² editable en el carrito.`
+      }
+    }));
+  });
+
+  // ---------------------------------------------------------------
+  // Tubería
+  // ---------------------------------------------------------------
+  const tubNorma = document.getElementById('tub-norma');
+  const tubDiametro = document.getElementById('tub-diametro');
+  const tubSdr = document.getElementById('tub-sdr');
+  const tubEspesorOut = document.getElementById('tub-espesor');
+  const tubPresionOut = document.getElementById('tub-presion');
+  const tubPresionLabel = document.getElementById('tub-presion-label');
+
+  function getCurrentTable() {
+    return tubNorma.value === 'ntp' ? NTP_TABLE : ASTM_TABLE;
+  }
+  function getCurrentSdrLabels() {
+    return tubNorma.value === 'ntp' ? NTP_SDR_LABELS : ASTM_SDR_LABELS;
+  }
+
+  function populateDiametros() {
+    const table = getCurrentTable();
+    tubDiametro.innerHTML = Object.keys(table).map(d => `<option value="${d}">${d}${tubNorma.value === 'ntp' ? ' mm' : ''}</option>`).join('');
+    populateSdr();
+  }
+
+  function populateSdr() {
+    const table = getCurrentTable();
+    const sdrLabels = getCurrentSdrLabels();
+    const row = table[tubDiametro.value];
+    if (!row) return;
+
+    const options = sdrLabels
+      .map((sdr, i) => ({ sdr, espesor: row[i] }))
+      .filter(opt => opt.espesor !== '-');
+
+    tubSdr.innerHTML = options.map(opt => `<option value="${opt.sdr}">SDR ${opt.sdr} (${opt.espesor} mm)</option>`).join('');
+    updateResultado();
+  }
+
+  function updateResultado() {
+    const table = getCurrentTable();
+    const sdrLabels = getCurrentSdrLabels();
+    const row = table[tubDiametro.value];
+    if (!row) return;
+
+    const idx = sdrLabels.indexOf(tubSdr.value);
+    const espesor = row[idx];
+    tubEspesorOut.textContent = espesor + ' mm';
+
+    if (tubNorma.value === 'ntp') {
+      const p = NTP_PRESSURE[tubSdr.value];
+      tubPresionLabel.textContent = 'Presión nominal (PE80 / PE100)';
+      tubPresionOut.textContent = p ? `PE80: ${p.pe80}  /  PE100: ${p.pe100}` : '-';
+    } else {
+      const p = ASTM_PRESSURE[tubSdr.value];
+      tubPresionLabel.textContent = 'Presión nominal (PE3608 / PE4710)';
+      tubPresionOut.textContent = p ? `PE3608: ${p.pe3608}  /  PE4710: ${p.pe4710}` : '-';
+    }
+  }
+
+  tubNorma.addEventListener('change', populateDiametros);
+  tubDiametro.addEventListener('change', populateSdr);
+  tubSdr.addEventListener('change', updateResultado);
+
+  document.getElementById('tub-add-quote').addEventListener('click', () => {
+    const norma = tubNorma.value === 'ntp' ? 'NTP ISO 4427-2' : 'ASTM F714';
+    const diametro = tubDiametro.value;
+    const sdr = tubSdr.value;
+    const espesor = tubEspesorOut.textContent;
+
+    window.dispatchEvent(new CustomEvent('add-to-quote', {
+      detail: {
+        id: `calc-tuberia-${norma}-${diametro}-${sdr}`,
+        name: `Tubería HDPE Ø${diametro} SDR${sdr} (${norma})`,
+        category: 'Tubería HDPE',
+        unit: 'm',
+        customInfo: `Espesor de pared: ${espesor} — ${tubPresionOut.textContent}. Ingresa los metros lineales que necesitas.`
+      }
+    }));
+  });
+
+  // Inicializa con NTP por defecto
+  populateDiametros();
+</script>

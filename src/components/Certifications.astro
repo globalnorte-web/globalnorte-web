@@ -1,0 +1,60 @@
+---
+// src/components/Certifications.astro
+const normas = [
+  {
+    codigo: "NTP ISO 4427-2",
+    nombre: "Tuberías HDPE",
+    detalle: "Norma técnica peruana para tuberías de polietileno de alta densidad en sistemas de agua potable y saneamiento.",
+    ficha: "/fichas-tecnicas/ntp-iso-4427-2.pdf",
+  },
+  {
+    codigo: "ASTM F714",
+    nombre: "Tuberías HDPE (uso pesado)",
+    detalle: "Norma dimensional americana para tuberías de polietileno usadas en conducción de relaves, minería e industria.",
+    ficha: "/fichas-tecnicas/astm-f714.pdf",
+  },
+  {
+    codigo: "GRI-GM13",
+    nombre: "Geomembranas HDPE",
+    detalle: "Especificación internacional que garantiza resistencia UV, química y al agrietamiento en geomembranas de alta exigencia.",
+    ficha: "/fichas-tecnicas/gm13.pdf",
+  },
+];
+---
+
+<section id="certificaciones" class="py-16 bg-slate-900">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <span class="text-blue-400 font-bold tracking-widest uppercase text-sm mb-2 block">Calidad Garantizada</span>
+      <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Normas y Certificaciones</h2>
+      <p class="text-slate-300 max-w-2xl mx-auto">
+        Nuestros productos cumplen con estándares técnicos internacionales, respaldando la seguridad y durabilidad de tu proyecto.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {normas.map((norma) => (
+        <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 hover:border-blue-500 transition-colors flex flex-col">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-blue-500/10 text-blue-400 w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-black text-white text-lg leading-tight">{norma.codigo}</p>
+              <p class="text-xs text-blue-300 font-medium">{norma.nombre}</p>
+            </div>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed mb-4 flex-grow">{norma.detalle}</p>
+          <a href={norma.ficha} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Ver ficha técnica (PDF)
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

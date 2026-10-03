@@ -1,0 +1,39 @@
+---
+import { siteData } from '../data/company';
+---
+
+<section id="nosotros" class="py-24 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+    <!-- Columna de Texto -->
+    <div>
+      <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-2 block">Quiénes Somos</span>
+      <h2 class="text-4xl font-black text-slate-900 mb-6">Grandes obras al servicio de todos</h2>
+
+      <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+        En {siteData.name}, suministramos geosintéticos, tuberías HDPE/PVC y equipos de termofusión para proyectos de minería, agro, infraestructura y vías en la región norte del Perú. Nuestro enfoque es garantizar materiales certificados y disponibilidad inmediata para que tu obra no se detenga.
+      </p>
+
+      <ul class="space-y-4 mb-8">
+        <li class="flex items-center gap-3 text-slate-700 font-medium">
+          <svg class="w-6 h-6 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+          <span>Materiales certificados bajo normas ISO, NTP y ASTM.</span>
+        </li>
+        <li class="flex items-center gap-3 text-slate-700 font-medium">
+          <svg class="w-6 h-6 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+          <span>Asesoría técnica para elegir el material correcto según tu proyecto.</span>
+        </li>
+        <li class="flex items-center gap-3 text-slate-700 font-medium">
+          <svg class="w-6 h-6 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+          <span>Cotización y despacho ágil para obras en toda la región.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Columna de Imagen -->
+    <div class="relative">
+      <!-- Decoración de fondo -->
+      <div class="absolute inset-0 bg-slate-300 rounded-2xl transform translate-x-4 translate-y-4 -z-10"></div>
+      <img src="/nosotros/despacho-geomembranas.jpg" alt="Despacho de rollos de geomembrana HDPE GM13 de Globalnorte listos para obra" class="rounded-2xl shadow-xl w-full object-cover h-[450px]" />
+    </div>
+  </div>
+</section>
