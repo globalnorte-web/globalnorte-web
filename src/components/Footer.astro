@@ -1,11 +1,15 @@
 ---
 import { siteData } from '../data/company';
 
-// Coordenadas exactas de la ubicación real (más precisas que buscar la dirección en texto)
-const LAT = -7.168287;
-const LNG = -78.501464;
-const mapEmbedUrl = `https://www.google.com/maps?q=${LAT},${LNG}&z=17&output=embed`;
-const mapLinkUrl = `https://www.google.com/maps?q=${LAT},${LNG}`;
+// Ubicaciones con coordenadas exactas (más precisas que buscar la dirección en texto)
+const ubicaciones = [
+  { id: 'oficina', nombre: 'Oficina', detalle: siteData.contact.address, lat: -7.168287, lng: -78.501464 },
+  { id: 'almacen', nombre: 'Almacén', detalle: 'Ubicación de nuestro almacén', lat: -7.187722, lng: -78.4805 },
+].map((u) => ({
+  ...u,
+  embed: `https://www.google.com/maps?q=${u.lat},${u.lng}&z=17&output=embed`,
+  link: `https://www.google.com/maps?q=${u.lat},${u.lng}`,
+}));
 ---
 
 <footer class="bg-slate-100 text-slate-600 py-12 border-t-4 border-blue-500 mt-20">
@@ -71,22 +75,21 @@ const mapLinkUrl = `https://www.google.com/maps?q=${LAT},${LNG}`;
     </div>
   </div>
 
-  <!-- Mapa de ubicación -->
+  <!-- Mapa de ubicaciones: Oficina y Almacén -->
   <div class="max-w-7xl mx-auto px-4 mt-12">
+    <div class="flex justify-center gap-2 mb-4">
+      {ubicaciones.map((u, i) => (
+        <button type="button" data-embed={u.embed} data-link={u.link} data-detalle={u.detalle} class={`loc-tab px-5 py-2 rounded-xl text-sm font-bold transition-colors cursor-pointer ${i === 0 ? 'bg-blue-600 text-white' : 'bg-white text-slate-600 border border-slate-300'}`}>
+          {u.nombre}
+        </button>
+      ))}
+    </div>
     <div class="rounded-xl overflow-hidden border border-slate-300 shadow-sm">
-      <iframe
-        src={mapEmbedUrl}
-        width="100%"
-        height="280"
-        style="border:0;"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Ubicación de EG Globalnorte en Cajamarca"
-      ></iframe>
+      <iframe id="map-frame" src={ubicaciones[0].embed} width="100%" height="280" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de EG Globalnorte en Cajamarca"></iframe>
     </div>
     <div class="text-center mt-3">
-      <a href={mapLinkUrl} target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">
+      <p id="map-caption" class="text-xs text-slate-500 mb-1">{ubicaciones[0].detalle}</p>
+      <a id="map-link" href={ubicaciones[0].link} target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">
         Cómo llegar →
       </a>
     </div>
@@ -107,3 +110,25 @@ const mapLinkUrl = `https://www.google.com/maps?q=${LAT},${LNG}`;
     &copy; {new Date().getFullYear()} {siteData.name}. Todos los derechos reservados.
   </div>
 </footer>
+
+<script>
+  const locTabs = document.querySelectorAll('.loc-tab');
+  const mapFrame = document.getElementById('map-frame');
+  const mapLink = document.getElementById('map-link');
+  const mapCaption = document.getElementById('map-caption');
+
+  locTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      locTabs.forEach((t) => {
+        t.classList.remove('bg-blue-600', 'text-white');
+        t.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-300');
+      });
+      tab.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-300');
+      tab.classList.add('bg-blue-600', 'text-white');
+
+      mapFrame.setAttribute('src', tab.getAttribute('data-embed'));
+      mapLink.setAttribute('href', tab.getAttribute('data-link'));
+      mapCaption.textContent = tab.getAttribute('data-detalle');
+    });
+  });
+</script>

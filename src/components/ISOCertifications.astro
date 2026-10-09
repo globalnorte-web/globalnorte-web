@@ -1,0 +1,73 @@
+---
+// src/components/ISOCertifications.astro
+// Datos tomados de los certificados oficiales emitidos por ICO.
+// Si renuevan un certificado, actualiza aquí la fecha "vence" y reemplaza el PDF en public/certificados/.
+const certificados = [
+  {
+    norma: "ISO 9001:2015",
+    nombre: "Sistema de Gestión de la Calidad",
+    otorgado: "02/06/2026",
+    vence: "01/06/2027",
+    pdf: "/certificados/iso-9001.pdf",
+  },
+  {
+    norma: "ISO 14001:2015",
+    nombre: "Sistema de Gestión Ambiental",
+    otorgado: "04/02/2026",
+    vence: "03/02/2027",
+    pdf: "/certificados/iso-14001.pdf",
+  },
+  {
+    norma: "ISO 45001:2018",
+    nombre: "Seguridad y Salud en el Trabajo",
+    otorgado: "10/02/2026",
+    vence: "09/02/2027",
+    pdf: "/certificados/iso-45001.pdf",
+  },
+  {
+    norma: "ISO 37001:2025",
+    nombre: "Sistema de Gestión Antisoborno",
+    otorgado: "15/05/2026",
+    vence: "14/05/2027",
+    pdf: "/certificados/iso-37001.pdf",
+  },
+];
+---
+
+<section id="certificaciones" class="py-20 bg-white border-t border-slate-100">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-2 block">Calidad Garantizada</span>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">Empresa Certificada</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto">
+        Contamos con certificaciones ISO emitidas por ICO (International Certification Organization), con acreditación INACAL.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {certificados.map((cert) => (
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col hover:border-blue-400 hover:shadow-lg transition-all">
+          <div class="bg-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <p class="text-xl font-black text-slate-900 leading-tight">{cert.norma}</p>
+          <p class="text-sm text-slate-600 font-medium mt-1 mb-4 flex-grow">{cert.nombre}</p>
+          <p class="text-xs text-slate-500">Otorgado: {cert.otorgado}</p>
+          <p class="text-xs text-slate-500 mb-4">Vence: {cert.vence}</p>
+          <a href={cert.pdf} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Ver certificado (PDF)
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <p class="text-center text-xs text-slate-400 mt-8">
+      La autenticidad de cada certificado puede verificarse en <a href="https://icocert.pe" target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-600">icocert.pe</a> mediante el código QR del documento.
+    </p>
+  </div>
+</section>
