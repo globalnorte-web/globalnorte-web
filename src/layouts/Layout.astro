@@ -8,6 +8,53 @@ const { title = siteData.title, description = siteData.description } = Astro.pro
 // Usamos el logo que subiste para que aparezca al compartir el enlace
 const ogImage = "/logo.png";
 
+// URL canónica siempre con el dominio real (evita contenido duplicado con *.vercel.app)
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://grupoglobalnorte.com').href;
+
+// Datos estructurados para Google (negocio local)
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://grupoglobalnorte.com/#negocio",
+  "name": siteData.name,
+  "legalName": siteData.razonSocial,
+  "taxID": siteData.ruc,
+  "url": "https://grupoglobalnorte.com",
+  "logo": "https://grupoglobalnorte.com/logo.png",
+  "image": "https://grupoglobalnorte.com/logo.png",
+  "description": siteData.description,
+  "telephone": "+51" + siteData.contact.phone,
+  "email": siteData.contact.email,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jr. Libertad Nro. 277",
+    "addressLocality": "Cajamarca",
+    "addressRegion": "Cajamarca",
+    "addressCountry": "PE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -7.168287,
+    "longitude": -78.501464
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "08:30",
+      "closes": "13:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "15:00",
+      "closes": "19:00"
+    }
+  ],
+  "areaServed": "Perú",
+  "knowsAbout": ["Geosintéticos", "Geomembranas HDPE", "Tuberías HDPE y PVC", "Equipos de termofusión"]
+};
+
 // Datos que el chatbot necesita, tomados de la MISMA fuente que el footer
 // (así nunca vuelven a desincronizarse el horario o el teléfono).
 const chatPhone = siteData.contact.phone || "51960457147";
@@ -24,6 +71,8 @@ const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning}
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="author" content={siteData.name} />
+        <link rel="canonical" href={canonicalUrl} />
+        <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
         <meta name="keywords" content="geosinteticos, geomembranas HDPE, geotextiles, geomallas, geoceldas, tuberia HDPE, tuberia PVC, equipos de termofusion, Cajamarca, mineria, agro, infraestructura" />
 
         <!-- OpenGraph / Facebook / WhatsApp / LinkedIn -->
