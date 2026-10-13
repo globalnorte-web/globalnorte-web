@@ -5,7 +5,7 @@ export const siteData = {
   title: "EG Globalnorte | Geosintéticos y Ferretería en Cajamarca",
   description: "Comercialización (importación, compra y venta) de geosintéticos y productos de ferretería en Cajamarca, Perú.",
   contact: {
-    phone: "953867500",
+    phone: "51953867500", // con código de país (Perú = 51); se usa en todos los enlaces wa.me
     displayPhone: "953 867 500",
     email: "administracion@grupoglobalnorte.com",
     address: "Jr. Libertad Nro. 277, Cajamarca, Cajamarca, Cajamarca",

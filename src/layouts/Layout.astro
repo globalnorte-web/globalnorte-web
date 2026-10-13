@@ -23,7 +23,7 @@ const localBusinessJsonLd = {
   "logo": "https://grupoglobalnorte.com/logo.png",
   "image": "https://grupoglobalnorte.com/logo.png",
   "description": siteData.description,
-  "telephone": "+51" + siteData.contact.phone,
+  "telephone": "+" + siteData.contact.phone,
   "email": siteData.contact.email,
   "address": {
     "@type": "PostalAddress",
@@ -65,7 +65,7 @@ const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning}
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/png" href="/logo.png" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         <!-- SEO Básico -->
         <title>{title}</title>
