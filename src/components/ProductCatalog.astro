@@ -82,7 +82,7 @@ const projectTypes = ["Todos los Proyectos", "Minería", "Carreteras y Vías", "
             <!-- Imagen Clicable hacia la Ficha Técnica -->
             <a href={`/producto/${product.id}`} class="h-80 overflow-hidden relative bg-slate-200 block cursor-pointer">
               <span class="absolute top-4 left-4 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-sm">{product.category}</span>
-              <img src={product.image} alt={product.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img src={product.image} alt={product.name} loading="lazy" onerror="this.onerror=null;this.src='/products/placeholder.svg'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </a>
             
             <div class="p-6 flex flex-col flex-grow">

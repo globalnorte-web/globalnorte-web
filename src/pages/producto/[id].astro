@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import QuoteDrawer from '../../components/QuoteDrawer.astro';
 import { catalog } from '../../data/products';
 import { siteData } from '../../data/company';
 
@@ -14,10 +16,78 @@ const { product } = Astro.props;
 const cleanPhone = siteData.contact.phone || "51960457147";
 const whatsappMessage = encodeURIComponent(`Hola Grupo Globalnorte, deseo más información sobre:\n\n*${product.name}*`);
 const whatsappUrl = `https://wa.me/${cleanPhone}?text=${whatsappMessage}`;
+const unidad = product.unit || 'unidad';
 
 const relatedProducts = catalog
   .filter(p => p.category === product.category && p.id !== product.id)
   .slice(0, 3);
+
+// ---------------------------------------------------------------
+// Datos técnicos tomados de las fichas técnicas de la empresa
+// ---------------------------------------------------------------
+const ANCHO_ROLLO_M = 7; // ficha: 7 - 8 m (se calcula con el mínimo)
+const rollosGeomembrana = [
+  { espesor: '0.75 mm', largo: 400 },
+  { espesor: '0.80 mm', largo: 350 },
+  { espesor: '1.00 mm', largo: 310 },
+  { espesor: '1.50 mm', largo: 210 },
+  { espesor: '2.00 mm', largo: 115 },
+  { espesor: '2.50 mm', largo: 120 },
+  { espesor: '3.00 mm', largo: 100 },
+];
+
+const esGeomembrana = product.id === 'geomembrana-hdpe-lisa-nominal' || product.id === 'geomembrana-hdpe-lisa-gm13';
+
+const datosTuberia: Record<string, { label: string; value: string }[]> = {
+  'tuberia-hdpe-iso4427': [
+    { label: 'Diámetros nominales', value: '16 a 1000 mm' },
+    { label: 'Resinas', value: 'PE 80 y PE 100' },
+    { label: 'Relaciones SDR', value: '6, 7.4, 9, 11, 13.6, 17, 21, 26, 33 y 41' },
+    { label: 'Presión nominal', value: 'PN 3.2 a PN 25 bar (46 a 363 PSI), según resina y SDR' },
+  ],
+  'tuberia-hdpe-astm-f714': [
+    { label: 'Diámetros nominales', value: '4" a 36" (114.30 a 914.40 mm)' },
+    { label: 'Resinas', value: 'PE 3608 y PE 4710' },
+    { label: 'Relaciones SDR', value: '7, 7.3, 9, 11, 13.5, 17, 21, 26, 32.5 y 41' },
+    { label: 'Presión de trabajo', value: '40 a 335 PSI, según resina y SDR' },
+  ],
+};
+const datosTecnicosTuberia = datosTuberia[product.id];
+
+const propiedadesGM13 = [
+  { label: 'Densidad', value: '≥ 0.940 g/cm³ (ASTM D792)' },
+  { label: 'Resistencia al agrietamiento', value: '≥ 500 horas (ASTM D5397)' },
+  { label: 'Contenido de negro de humo', value: '2 - 3 % (ASTM D4218)' },
+  { label: 'Estabilidad dimensional', value: '±1.50 % (ASTM D1204)' },
+];
+
+// ---------------------------------------------------------------
+// Preguntas frecuentes según la categoría del producto
+// ---------------------------------------------------------------
+const precioRespuesta = 'El precio depende del tipo o espesor, la cantidad y el destino de la obra. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.';
+
+let faqs: { q: string; a: string }[] = [];
+if (product.category === 'Geosintéticos') {
+  faqs = [
+    { q: '¿En qué unidad se cotiza?', a: 'Por metro cuadrado (m²). Los rollos vienen en medidas estándar y tu asesor te confirma cuántos rollos necesitas para tu área.' },
+    { q: '¿Cómo calculo cuánto material necesito?', a: 'Puedes usar la calculadora de materiales de esta web: ingresas el largo y el ancho del área y te estima el área con margen y la cantidad de rollos. Para geomembranas, recuerda medir el área real a cubrir, incluyendo taludes y zanja de anclaje.' },
+    { q: '¿Cómo obtengo el precio?', a: precioRespuesta },
+    { q: product.certification ? '¿Tienen ficha técnica?' : '¿Dónde consulto la documentación técnica?', a: product.certification ? 'Sí, puedes descargar la ficha técnica en PDF desde esta misma página.' : 'Consúltala con tu asesor técnico por WhatsApp junto con tu solicitud de cotización.' },
+  ];
+} else if (product.category === 'Tubería HDPE' || product.category === 'Tubería PVC') {
+  faqs = [
+    { q: '¿En qué unidad se cotiza?', a: 'Por metro lineal (m). Indícanos el diámetro, la presión o SDR y los metros que necesitas.' },
+    { q: '¿Qué significa el SDR?', a: 'Es la relación entre el diámetro y el espesor de pared. A menor SDR, la pared es más gruesa y la tubería soporta mayor presión.' },
+    { q: '¿Cómo consulto el espesor de pared según el diámetro?', a: 'En la calculadora de materiales de esta web eliges la norma, el diámetro y el SDR, y te muestra el espesor mínimo de pared y la presión nominal.' },
+    { q: '¿Cómo obtengo el precio?', a: precioRespuesta },
+  ];
+} else {
+  faqs = [
+    { q: '¿Cuál equipo necesito?', a: 'La máquina de cuña caliente se usa para unir paños de geomembrana con costura doble y canal de prueba. La soldadora extrusora sirve para remates, botas de tubería y reparaciones. La pistola de calor se usa en trabajos de detalle y parches.' },
+    { q: '¿Cómo se cotiza?', a: 'Por unidad. Agrégalo a tu cotización o escríbenos por WhatsApp.' },
+    { q: '¿Cómo obtengo el precio?', a: precioRespuesta },
+  ];
+}
 ---
 
 <Layout title={`${product.name} | Grupo Globalnorte`} description={product.description}>
@@ -26,14 +96,14 @@ const relatedProducts = catalog
       <a href="/#catalogo" class="text-blue-500 font-bold hover:underline mb-8 inline-flex items-center gap-2">
         &larr; Volver al catálogo
       </a>
-      
+
       <!-- Detalle Principal -->
       <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 overflow-hidden grid md:grid-cols-2 gap-8 mb-16">
-        <div class="h-96 md:h-auto relative">
-          <img src={product.image} alt={product.name} class="w-full h-full object-cover" />
+        <div class="h-96 md:h-auto relative bg-slate-200">
+          <img src={product.image} alt={product.name} onerror="this.onerror=null;this.src='/products/placeholder.svg'" class="w-full h-full object-cover" />
           <span class="absolute top-4 left-4 bg-blue-500 text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-sm">{product.category}</span>
         </div>
-        
+
         <div class="p-8 lg:p-12 flex flex-col justify-center">
           <h1 class="text-4xl font-black text-slate-800 mb-3">{product.name}</h1>
 
@@ -45,7 +115,7 @@ const relatedProducts = catalog
           )}
 
           <p class="text-lg text-slate-600 mb-8 leading-relaxed">{product.description}</p>
-          
+
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
             <div>
               <h3 class="font-bold text-slate-800 mb-3 border-b pb-2">Especificaciones</h3>
@@ -57,7 +127,7 @@ const relatedProducts = catalog
                 ))}
               </ul>
             </div>
-            
+
             {product.uses && (
               <div>
                 <h3 class="font-bold text-slate-800 mb-3 border-b pb-2">Aplicaciones y Usos</h3>
@@ -72,12 +142,95 @@ const relatedProducts = catalog
               </div>
             )}
           </div>
-          
-          <a href={whatsappUrl} target="_blank" class="w-full md:w-auto text-center bg-slate-800 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg transition-colors text-lg shadow-lg">
-            Solicitar Cotización por WhatsApp
-          </a>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button id="btn-add-quote" type="button" data-id={product.id} data-name={product.name} data-category={product.category} data-unit={unidad} class="text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition-colors text-lg shadow-lg cursor-pointer">
+              Añadir a mi cotización ({unidad})
+            </button>
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="text-center bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 px-8 rounded-lg transition-colors text-lg shadow-lg">
+              Consultar por WhatsApp
+            </a>
+          </div>
         </div>
       </div>
+
+      <!-- Datos técnicos de catálogo -->
+      {esGeomembrana && (
+        <section class="mb-16">
+          <h2 class="text-2xl font-black text-slate-800 mb-2">Medidas estándar de rollo</h2>
+          <p class="text-slate-600 mb-6 text-sm">Según la ficha técnica, el ancho del rollo es de 7 a 8 m. El área por rollo se calcula aquí con 7 m de ancho. También hay otros largos de rollo: consulta con tu asesor.</p>
+          <div class="overflow-x-auto bg-white rounded-xl border border-slate-200">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-800 text-white">
+                <tr>
+                  <th class="px-4 py-3 font-bold">Espesor</th>
+                  <th class="px-4 py-3 font-bold">Largo del rollo (m)</th>
+                  <th class="px-4 py-3 font-bold">Ancho (m)</th>
+                  <th class="px-4 py-3 font-bold">Área por rollo (m²)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rollosGeomembrana.map((r, i) => (
+                  <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                    <td class="px-4 py-3 font-bold text-slate-800">{r.espesor}</td>
+                    <td class="px-4 py-3 text-slate-600">{r.largo}</td>
+                    <td class="px-4 py-3 text-slate-600">7 - 8</td>
+                    <td class="px-4 py-3 text-slate-600">{(r.largo * ANCHO_ROLLO_M).toLocaleString('es-PE')}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="text-sm text-slate-600 mt-4">¿Cuántos rollos necesitas? Usa la <a href="/#calculadora" class="text-blue-600 font-bold hover:underline">calculadora de materiales</a> o lee la guía <a href="/guias/cuantos-rollos-de-geomembrana-necesito" class="text-blue-600 font-bold hover:underline">¿Cuántos rollos de geomembrana necesito?</a></p>
+
+          {product.id === 'geomembrana-hdpe-lisa-gm13' && (
+            <div class="mt-8">
+              <h3 class="text-lg font-black text-slate-800 mb-3">Propiedades según la ficha técnica GRI-GM13</h3>
+              <dl class="grid sm:grid-cols-2 gap-3">
+                {propiedadesGM13.map((p) => (
+                  <div class="bg-white border border-slate-200 rounded-lg px-4 py-3">
+                    <dt class="text-xs font-bold text-slate-500 uppercase">{p.label}</dt>
+                    <dd class="text-sm text-slate-800 font-medium">{p.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p class="text-xs text-slate-500 mt-3">Valores mínimos o rangos de la ficha técnica; la ficha completa incluye todas las propiedades por espesor.</p>
+            </div>
+          )}
+        </section>
+      )}
+
+      {datosTecnicosTuberia && (
+        <section class="mb-16">
+          <h2 class="text-2xl font-black text-slate-800 mb-2">Datos técnicos de catálogo</h2>
+          <p class="text-slate-600 mb-6 text-sm">Resumen de la ficha técnica. También hay otros diámetros y relaciones SDR: consulta con tu asesor.</p>
+          <dl class="grid sm:grid-cols-2 gap-3">
+            {datosTecnicosTuberia.map((d) => (
+              <div class="bg-white border border-slate-200 rounded-lg px-4 py-3">
+                <dt class="text-xs font-bold text-slate-500 uppercase">{d.label}</dt>
+                <dd class="text-sm text-slate-800 font-medium">{d.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <p class="text-sm text-slate-600 mt-4">Consulta el espesor mínimo de pared por diámetro y SDR en la <a href="/#calculadora" class="text-blue-600 font-bold hover:underline">calculadora de materiales</a>.</p>
+        </section>
+      )}
+
+      <!-- Preguntas frecuentes -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-black text-slate-800 mb-6">Preguntas frecuentes</h2>
+        <div class="space-y-3">
+          {faqs.map((f) => (
+            <details class="group bg-white border border-slate-200 rounded-xl px-5 py-4">
+              <summary class="font-bold text-slate-800 cursor-pointer list-none flex items-center justify-between gap-4">
+                {f.q}
+                <span class="text-blue-500 text-xl group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p class="text-sm text-slate-600 leading-relaxed mt-3">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
       <!-- Productos Relacionados -->
       {relatedProducts.length > 0 && (
@@ -86,8 +239,8 @@ const relatedProducts = catalog
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {relatedProducts.map((related: any) => (
               <a href={`/producto/${related.id}`} class="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-all flex flex-col">
-                <div class="h-48 overflow-hidden">
-                  <img src={related.image} alt={related.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                <div class="h-48 overflow-hidden bg-slate-200">
+                  <img src={related.image} alt={related.name} onerror="this.onerror=null;this.src='/products/placeholder.svg'" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                 </div>
                 <div class="p-4 flex-grow">
                   <h3 class="font-bold text-slate-800">{related.name}</h3>
@@ -100,4 +253,26 @@ const relatedProducts = catalog
       )}
     </div>
   </div>
+
+  <QuoteDrawer />
+  <Footer />
 </Layout>
+
+<script>
+  const addBtn = document.getElementById('btn-add-quote');
+  if (addBtn) {
+    const originalText = addBtn.textContent;
+    addBtn.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('add-to-quote', {
+        detail: {
+          id: addBtn.getAttribute('data-id'),
+          name: addBtn.getAttribute('data-name'),
+          category: addBtn.getAttribute('data-category'),
+          unit: addBtn.getAttribute('data-unit') || 'unidad'
+        }
+      }));
+      addBtn.textContent = 'Añadido a tu cotización ✓';
+      setTimeout(() => { addBtn.textContent = originalText; }, 1800);
+    });
+  }
+</script>
