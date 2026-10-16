@@ -1,26 +1,38 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Services from '../components/Services.astro';
-import Certifications from '../components/Certifications.astro';
-import ProductCatalog from '../components/ProductCatalog.astro';
-import Calculator from '../components/Calculator.astro';
-import About from '../components/About.astro';
-import ISOCertifications from '../components/ISOCertifications.astro';
-import CTAFinal from '../components/CTAFinal.astro';
-import QuoteDrawer from '../components/QuoteDrawer.astro';
-import Footer from '../components/Footer.astro';
+// src/pages/guias/index.astro
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+
+const guias = [
+  {
+    href: '/guias/cuantos-rollos-de-geomembrana-necesito',
+    titulo: '¿Cuántos rollos de geomembrana necesito?',
+    resumen: 'Cómo estimar el área a cubrir y la cantidad de rollos según el espesor, con la fórmula y dos ejemplos.',
+  },
+];
 ---
 
-<Layout>
-  <Hero />
-  <Services />
-  <Certifications />
-  <ProductCatalog />
-  <Calculator />
-  <About />
-  <ISOCertifications />
-  <CTAFinal />
-  <QuoteDrawer />
+<Layout
+  title="Guías técnicas de geosintéticos y tuberías | EG Globalnorte"
+  description="Guías prácticas sobre geomembranas, geotextiles, geomallas y tuberías HDPE/PVC para tus proyectos."
+>
+  <section class="py-16 md:py-20 bg-white min-h-[60vh]">
+    <div class="max-w-4xl mx-auto px-4">
+      <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-2 block">Aprende</span>
+      <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">Guías técnicas</h1>
+      <p class="text-slate-600 mb-10 max-w-2xl">Información práctica para elegir, calcular y cotizar tus materiales.</p>
+
+      <div class="grid gap-4">
+        {guias.map((g) => (
+          <a href={g.href} class="block bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-blue-400 hover:shadow-lg transition-all">
+            <h2 class="text-xl font-black text-slate-900 mb-2">{g.titulo}</h2>
+            <p class="text-slate-600 text-sm mb-3">{g.resumen}</p>
+            <span class="text-blue-600 font-bold text-sm">Leer guía →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <Footer />
 </Layout>
