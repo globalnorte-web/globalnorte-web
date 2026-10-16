@@ -14,7 +14,7 @@ export function getStaticPaths() {
 
 const { product } = Astro.props;
 const cleanPhone = siteData.contact.phone || "51960457147";
-const whatsappMessage = encodeURIComponent(`Hola Grupo Globalnorte, deseo más información sobre:\n\n*${product.name}*`);
+const whatsappMessage = encodeURIComponent(`Hola EG globalnorte, deseo más información sobre:\n\n*${product.name}*`);
 const whatsappUrl = `https://wa.me/${cleanPhone}?text=${whatsappMessage}`;
 const unidad = product.unit || 'unidad';
 
@@ -90,7 +90,7 @@ if (product.category === 'Geosintéticos') {
 }
 ---
 
-<Layout title={`${product.name} | Grupo Globalnorte`} description={product.description}>
+<Layout title={`${product.name} | EG globalnorte`} description={product.description}>
   <div class="bg-slate-50 py-12 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4">
       <a href="/#catalogo" class="text-blue-500 font-bold hover:underline mb-8 inline-flex items-center gap-2">
