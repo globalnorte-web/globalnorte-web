@@ -4,6 +4,7 @@ import Footer from '../../components/Footer.astro';
 import QuoteDrawer from '../../components/QuoteDrawer.astro';
 import { catalog } from '../../data/products';
 import { siteData } from '../../data/company';
+import { seoPorProducto, contenidoPorProducto } from '../../data/seo';
 
 export function getStaticPaths() {
   return catalog.map(product => ({
@@ -17,6 +18,11 @@ const cleanPhone = siteData.contact.phone || "51960457147";
 const whatsappMessage = encodeURIComponent(`Hola EG globalnorte, deseo más información sobre:\n\n*${product.name}*`);
 const whatsappUrl = `https://wa.me/${cleanPhone}?text=${whatsappMessage}`;
 const unidad = product.unit || 'unidad';
+
+const seo = seoPorProducto[product.id];
+const extra = contenidoPorProducto[product.id];
+const tituloPagina = seo?.title ?? `${product.name} en Cajamarca | EG globalnorte`;
+const descripcionPagina = seo?.description ?? product.description;
 
 const relatedProducts = catalog
   .filter(p => p.category === product.category && p.id !== product.id)
@@ -88,9 +94,12 @@ if (product.category === 'Geosintéticos') {
     { q: '¿Cómo obtengo el precio?', a: precioRespuesta },
   ];
 }
+
+// Preguntas propias del producto (si existen) van primero
+if (extra?.faqs) faqs = [...extra.faqs, ...faqs];
 ---
 
-<Layout title={`${product.name} | EG globalnorte`} description={product.description}>
+<Layout title={tituloPagina} description={descripcionPagina}>
   <div class="bg-slate-50 py-12 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4">
       <a href="/#catalogo" class="text-blue-500 font-bold hover:underline mb-8 inline-flex items-center gap-2">
@@ -213,6 +222,26 @@ if (product.category === 'Geosintéticos') {
             ))}
           </dl>
           <p class="text-sm text-slate-600 mt-4">Consulta el espesor mínimo de pared por diámetro y SDR en la <a href="/#calculadora" class="text-blue-600 font-bold hover:underline">calculadora de materiales</a>.</p>
+        </section>
+      )}
+
+      <!-- Sobre este producto (contenido propio, solo en las fichas que lo tienen) -->
+      {extra && (
+        <section class="mb-16">
+          <h2 class="text-2xl font-black text-slate-800 mb-4">Sobre {product.name}</h2>
+          <div class="space-y-4 text-slate-600 leading-relaxed">
+            {extra.intro.map((p: string) => <p>{p}</p>)}
+          </div>
+          {extra.enlaces && (
+            <div class="mt-6">
+              <h3 class="font-bold text-slate-800 mb-2">Productos y guías relacionados</h3>
+              <ul class="space-y-1">
+                {extra.enlaces.map((e: { href: string; texto: string }) => (
+                  <li><a href={e.href} class="text-blue-600 font-bold hover:underline">{e.texto}</a></li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
       )}
 
