@@ -123,7 +123,7 @@
   // ---------------------------------------------------------------
 
   // Largo de rollo estándar (m) por espesor de geomembrana — ficha GM13 / Nominal Liso
-  const ROLL_LENGTH_BY_THICKNESS = {
+  const ROLL_LENGTH_BY_THICKNESS: Record<string, number> = {
     "0.75": 400, "0.80": 350, "1.00": 310, "1.50": 210,
     "2.00": 115, "2.50": 120, "3.00": 100
   };
@@ -131,7 +131,7 @@
 
   // NTP ISO 4427-2 — SDR y espesores por diámetro (mm)
   const NTP_SDR_LABELS = ["41", "33", "26", "21", "17", "13.6", "11", "9", "7.4", "6"];
-  const NTP_PRESSURE = {
+  const NTP_PRESSURE: Record<string, { pe80: string; pe100: string }> = {
     "41": { pe80: "PN 3.2 bar (46 PSI)", pe100: "PN 4 bar (58 PSI)" },
     "33": { pe80: "PN 4 bar (58 PSI)", pe100: "PN 5 bar (73 PSI)" },
     "26": { pe80: "PN 5 bar (73 PSI)", pe100: "PN 6 bar (87 PSI)" },
@@ -143,7 +143,7 @@
     "7.4": { pe80: "PN 20 bar (290 PSI)", pe100: "PN 25 bar (363 PSI)" },
     "6": { pe80: "PN 25 bar (363 PSI)", pe100: "—" }
   };
-  const NTP_TABLE = {
+  const NTP_TABLE: Record<string, string[]> = {
     "16":  ["-","-","-","-","-","-","-","2.00","2.30","3.00"],
     "20":  ["-","-","-","-","-","-","2.00","2.30","3.00","3.40"],
     "25":  ["-","-","-","-","-","2.00","2.30","3.00","3.50","4.20"],
@@ -177,7 +177,7 @@
 
   // ASTM F714 — SDR y espesores por diámetro (pulg / mm)
   const ASTM_SDR_LABELS = ["41", "32.5", "26", "21", "17", "13.5", "11", "9", "7", "7.3"];
-  const ASTM_PRESSURE = {
+  const ASTM_PRESSURE: Record<string, { pe3608: string; pe4710: string }> = {
     "41": { pe3608: "40 PSI", pe4710: "50 PSI" },
     "32.5": { pe3608: "50 PSI", pe4710: "65 PSI" },
     "26": { pe3608: "65 PSI", pe4710: "80 PSI" },
@@ -189,7 +189,7 @@
     "7": { pe3608: "265 PSI", pe4710: "335 PSI" },
     "7.3": { pe3608: "255 PSI", pe4710: "315 PSI" }
   };
-  const ASTM_TABLE = {
+  const ASTM_TABLE: Record<string, string[]> = {
     "4\" / 114.30 mm":  ["2.79","3.51","4.39","5.44","6.73","8.46","10.39","12.70","16.33","15.65"],
     "5\" / 141.30 mm":  ["3.45","4.34","5.44","6.73","8.31","10.46","12.85","15.70","20.19","19.35"],
     "6\" / 168.28 mm":  ["4.11","5.18","6.48","8.00","9.91","12.47","15.29","18.69","24.03","23.06"],
@@ -212,14 +212,24 @@
   };
 
   // ---------------------------------------------------------------
+  // Utilidad: obtiene un elemento por su id con el tipo correcto
+  // (si falta en la página, avisa claramente en la consola)
+  // ---------------------------------------------------------------
+  function el<T extends HTMLElement = HTMLElement>(id: string): T {
+    const node = document.getElementById(id);
+    if (!node) throw new Error(`Calculator: no se encontró el elemento #${id}`);
+    return node as T;
+  }
+
+  // ---------------------------------------------------------------
   // Tabs
   // ---------------------------------------------------------------
-  const tabGeo = document.getElementById('tab-geomembrana');
-  const tabTub = document.getElementById('tab-tuberia');
-  const panelGeo = document.getElementById('panel-geomembrana');
-  const panelTub = document.getElementById('panel-tuberia');
+  const tabGeo = el<HTMLButtonElement>('tab-geomembrana');
+  const tabTub = el<HTMLButtonElement>('tab-tuberia');
+  const panelGeo = el<HTMLDivElement>('panel-geomembrana');
+  const panelTub = el<HTMLDivElement>('panel-tuberia');
 
-  function activateTab(tab) {
+  function activateTab(tab: 'geo' | 'tub') {
     const isGeo = tab === 'geo';
     panelGeo.classList.toggle('hidden', !isGeo);
     panelTub.classList.toggle('hidden', isGeo);
@@ -242,13 +252,13 @@
   // ---------------------------------------------------------------
   // Geomembrana
   // ---------------------------------------------------------------
-  const geoLargo = document.getElementById('geo-largo');
-  const geoAncho = document.getElementById('geo-ancho');
-  const geoEspesor = document.getElementById('geo-espesor');
-  const geoResultado = document.getElementById('geo-resultado');
-  let geoLastResult = null;
+  const geoLargo = el<HTMLInputElement>('geo-largo');
+  const geoAncho = el<HTMLInputElement>('geo-ancho');
+  const geoEspesor = el<HTMLSelectElement>('geo-espesor');
+  const geoResultado = el<HTMLDivElement>('geo-resultado');
+  let geoLastResult: { areaTotal: number; areaMargen: number; rollos: number; espesor: string } | null = null;
 
-  document.getElementById('geo-calcular').addEventListener('click', () => {
+  el<HTMLButtonElement>('geo-calcular').addEventListener('click', () => {
     const largo = parseFloat(geoLargo.value);
     const ancho = parseFloat(geoAncho.value);
     const espesor = geoEspesor.value;
@@ -264,16 +274,16 @@
     const areaPorRollo = ROLL_WIDTH_M * largoRollo;
     const rollos = Math.ceil(areaMargen / areaPorRollo);
 
-    document.getElementById('geo-area-total').textContent = areaTotal.toFixed(1) + ' m²';
-    document.getElementById('geo-area-margen').textContent = areaMargen.toFixed(1) + ' m²';
-    document.getElementById('geo-area-rollo').textContent = areaPorRollo.toFixed(0) + ' m²';
-    document.getElementById('geo-rollos').textContent = rollos + (rollos === 1 ? ' rollo' : ' rollos');
+    el('geo-area-total').textContent = areaTotal.toFixed(1) + ' m²';
+    el('geo-area-margen').textContent = areaMargen.toFixed(1) + ' m²';
+    el('geo-area-rollo').textContent = areaPorRollo.toFixed(0) + ' m²';
+    el('geo-rollos').textContent = rollos + (rollos === 1 ? ' rollo' : ' rollos');
 
     geoLastResult = { areaTotal, areaMargen, rollos, espesor };
     geoResultado.classList.remove('hidden');
   });
 
-  document.getElementById('geo-add-quote').addEventListener('click', () => {
+  el<HTMLButtonElement>('geo-add-quote').addEventListener('click', () => {
     if (!geoLastResult) return;
     const { areaMargen, rollos, espesor } = geoLastResult;
     window.dispatchEvent(new CustomEvent('add-to-quote', {
@@ -291,12 +301,12 @@
   // ---------------------------------------------------------------
   // Tubería
   // ---------------------------------------------------------------
-  const tubNorma = document.getElementById('tub-norma');
-  const tubDiametro = document.getElementById('tub-diametro');
-  const tubSdr = document.getElementById('tub-sdr');
-  const tubEspesorOut = document.getElementById('tub-espesor');
-  const tubPresionOut = document.getElementById('tub-presion');
-  const tubPresionLabel = document.getElementById('tub-presion-label');
+  const tubNorma = el<HTMLSelectElement>('tub-norma');
+  const tubDiametro = el<HTMLSelectElement>('tub-diametro');
+  const tubSdr = el<HTMLSelectElement>('tub-sdr');
+  const tubEspesorOut = el('tub-espesor');
+  const tubPresionOut = el('tub-presion');
+  const tubPresionLabel = el('tub-presion-label');
 
   function getCurrentTable() {
     return tubNorma.value === 'ntp' ? NTP_TABLE : ASTM_TABLE;
@@ -350,7 +360,7 @@
   tubDiametro.addEventListener('change', populateSdr);
   tubSdr.addEventListener('change', updateResultado);
 
-  document.getElementById('tub-add-quote').addEventListener('click', () => {
+  el<HTMLButtonElement>('tub-add-quote').addEventListener('click', () => {
     const norma = tubNorma.value === 'ntp' ? 'NTP ISO 4427-2' : 'ASTM F714';
     const diametro = tubDiametro.value;
     const sdr = tubSdr.value;

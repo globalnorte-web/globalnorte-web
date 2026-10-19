@@ -1,0 +1,41 @@
+---
+// Íconos de redes sociales. Para agregar otra red, súmala a esta lista.
+const redes = [
+  {
+    nombre: 'Instagram',
+    url: 'https://www.instagram.com/global_norte/',
+    hover: 'hover:bg-[#E1306C]',
+  },
+  {
+    nombre: 'Facebook',
+    url: 'https://www.facebook.com/profile.php?id=61594623756508',
+    hover: 'hover:bg-[#1877F2]',
+  },
+];
+---
+
+<div class="flex items-center gap-3">
+  {redes.map((red) => (
+    <a
+      href={red.url}
+      target="_blank"
+      rel="noopener noreferrer me"
+      aria-label={`EG globalnorte en ${red.nombre}`}
+      title={red.nombre}
+      class={`w-10 h-10 rounded-full bg-slate-100 text-slate-600 hover:text-white ${red.hover} flex items-center justify-center transition-colors`}
+    >
+      {red.nombre === 'Instagram' && (
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+      )}
+      {red.nombre === 'Facebook' && (
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+        </svg>
+      )}
+    </a>
+  ))}
+</div>

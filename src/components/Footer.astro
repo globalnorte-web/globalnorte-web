@@ -10,6 +10,10 @@ const ubicaciones = [
   embed: `https://www.google.com/maps?q=${u.lat},${u.lng}&z=17&output=embed`,
   link: `https://www.google.com/maps?q=${u.lat},${u.lng}`,
 }));
+
+// Redes sociales de la empresa
+const instagramUrl = 'https://www.instagram.com/global_norte/';
+const facebookUrl = 'https://www.facebook.com/profile.php?id=61594623756508';
 ---
 
 <footer class="bg-slate-100 text-slate-600 py-12 border-t-4 border-blue-500 mt-20">
@@ -23,17 +27,15 @@ const ubicaciones = [
         {siteData.description}
       </p>
 
-      <!-- Redes sociales: agregar aquí cuando estén disponibles -->
-      <!--
+      <!-- Redes sociales -->
       <div class="flex gap-3">
-        <a href="https://facebook.com/..." target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-slate-200 hover:bg-blue-500 hover:text-white text-slate-600 flex items-center justify-center transition-colors">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98H7.9V12h2.6V9.8c0-2.56 1.52-3.98 3.87-3.98 1.12 0 2.3.2 2.3.2v2.53h-1.3c-1.28 0-1.68.8-1.68 1.62V12h2.86l-.46 2.89h-2.4v6.98A10 10 0 0022 12z"/></svg>
+        <a href={facebookUrl} target="_blank" rel="noopener noreferrer me" aria-label="EG globalnorte en Facebook" title="Facebook" class="w-10 h-10 rounded-full bg-slate-200 hover:bg-[#1877F2] hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98H7.9V12h2.6V9.8c0-2.56 1.52-3.98 3.87-3.98 1.12 0 2.3.2 2.3.2v2.53h-1.3c-1.28 0-1.68.8-1.68 1.62V12h2.86l-.46 2.89h-2.4v6.98A10 10 0 0022 12z"/></svg>
         </a>
-        <a href="https://instagram.com/..." target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-slate-200 hover:bg-blue-500 hover:text-white text-slate-600 flex items-center justify-center transition-colors">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.02-3.58.07-4.85c.15-3.23 1.67-4.77 4.92-4.92 1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.35.2-6.78 2.62-6.98 6.98C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zM12 16a4 4 0 110-8 4 4 0 010 8zm6.41-10.85a1.44 1.44 0 11-1.44-1.44 1.44 1.44 0 011.44 1.44z"/></svg>
+        <a href={instagramUrl} target="_blank" rel="noopener noreferrer me" aria-label="EG globalnorte en Instagram" title="Instagram" class="w-10 h-10 rounded-full bg-slate-200 hover:bg-[#E1306C] hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.02-3.58.07-4.85c.15-3.23 1.67-4.77 4.92-4.92 1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.35.2-6.78 2.62-6.98 6.98C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zM12 16a4 4 0 110-8 4 4 0 010 8zm6.41-10.85a1.44 1.44 0 11-1.44-1.44 1.44 1.44 0 011.44 1.44z"/></svg>
         </a>
       </div>
-      -->
     </div>
 
     <!-- Columna 2: Contacto -->
@@ -112,9 +114,9 @@ const ubicaciones = [
 </footer>
 
 <script>
-  const locTabs = document.querySelectorAll('.loc-tab');
-  const mapFrame = document.getElementById('map-frame');
-  const mapLink = document.getElementById('map-link');
+  const locTabs = document.querySelectorAll<HTMLButtonElement>('.loc-tab');
+  const mapFrame = document.getElementById('map-frame') as HTMLIFrameElement | null;
+  const mapLink = document.getElementById('map-link') as HTMLAnchorElement | null;
   const mapCaption = document.getElementById('map-caption');
 
   locTabs.forEach((tab) => {
@@ -126,9 +128,10 @@ const ubicaciones = [
       tab.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-300');
       tab.classList.add('bg-blue-600', 'text-white');
 
-      mapFrame.setAttribute('src', tab.getAttribute('data-embed'));
-      mapLink.setAttribute('href', tab.getAttribute('data-link'));
-      mapCaption.textContent = tab.getAttribute('data-detalle');
+      const { embed, link, detalle } = tab.dataset;
+      if (mapFrame && embed) mapFrame.src = embed;
+      if (mapLink && link) mapLink.href = link;
+      if (mapCaption) mapCaption.textContent = detalle ?? '';
     });
   });
 </script>
