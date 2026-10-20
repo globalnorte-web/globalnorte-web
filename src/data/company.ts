@@ -1,8 +1,8 @@
 export const siteData = {
-  name: "EG globalnorte",
+  name: "Grupo Global Norte",
   razonSocial: "EG GLOBALNORTE E.I.R.L.",
   ruc: "20600306040",
-  title: "EG globalnorte | Geosintéticos y Ferretería en Cajamarca",
+  title: "Grupo Global Norte | Geosintéticos y Ferretería en Cajamarca",
   description: "Comercialización (importación, compra y venta) de geosintéticos y productos de ferretería en Cajamarca, Perú.",
   contact: {
     phone: "51953867500", // con código de país (Perú = 51); se usa en todos los enlaces wa.me

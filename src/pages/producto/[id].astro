@@ -15,13 +15,13 @@ export function getStaticPaths() {
 
 const { product } = Astro.props;
 const cleanPhone = siteData.contact.phone || "51960457147";
-const whatsappMessage = encodeURIComponent(`Hola EG globalnorte, deseo más información sobre:\n\n*${product.name}*`);
+const whatsappMessage = encodeURIComponent(`Hola Grupo Global Norte, deseo más información sobre:\n\n*${product.name}*`);
 const whatsappUrl = `https://wa.me/${cleanPhone}?text=${whatsappMessage}`;
 const unidad = product.unit || 'unidad';
 
 const seo = seoPorProducto[product.id];
 const extra = contenidoPorProducto[product.id];
-const tituloPagina = seo?.title ?? `${product.name} en Cajamarca | EG globalnorte`;
+const tituloPagina = seo?.title ?? `${product.name} en Cajamarca | Grupo Global Norte`;
 const descripcionPagina = seo?.description ?? product.description;
 
 const relatedProducts = catalog
