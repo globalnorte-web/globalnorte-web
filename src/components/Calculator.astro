@@ -317,7 +317,9 @@
 
   function populateDiametros() {
     const table = getCurrentTable();
-    tubDiametro.innerHTML = Object.keys(table).map(d => `<option value="${d}">${d}${tubNorma.value === 'ntp' ? ' mm' : ''}</option>`).join('');
+    // Se crean con new Option (no con innerHTML) porque las medidas ASTM llevan comillas
+    // (4" / 114.30 mm) y rompían el atributo value, dejando la lista de SDR sin actualizar.
+    tubDiametro.replaceChildren(...Object.keys(table).map(d => new Option(d + (tubNorma.value === 'ntp' ? ' mm' : ''), d)));
     populateSdr();
   }
 
@@ -331,7 +333,7 @@
       .map((sdr, i) => ({ sdr, espesor: row[i] }))
       .filter(opt => opt.espesor !== '-');
 
-    tubSdr.innerHTML = options.map(opt => `<option value="${opt.sdr}">SDR ${opt.sdr} (${opt.espesor} mm)</option>`).join('');
+    tubSdr.replaceChildren(...options.map(opt => new Option(`SDR ${opt.sdr} (${opt.espesor} mm)`, opt.sdr)));
     updateResultado();
   }
 
@@ -362,7 +364,8 @@
 
   el<HTMLButtonElement>('tub-add-quote').addEventListener('click', () => {
     const norma = tubNorma.value === 'ntp' ? 'NTP ISO 4427-2' : 'ASTM F714';
-    const diametro = tubDiametro.value;
+    // Las medidas ASTM traen comillas (4" / 114.30 mm): se cambian por "pulg" para no romper el carrito
+    const diametro = tubDiametro.value.replace(/"/g, ' pulg');
     const sdr = tubSdr.value;
     const espesor = tubEspesorOut.textContent;
 
