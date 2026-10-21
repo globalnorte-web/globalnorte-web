@@ -53,7 +53,7 @@ const slides = [
 </section>
 
 <script>
-  // Carrusel del fondo: cambia de foto cada 6 segundos con un fundido suave.
+  // Carrusel del fondo: cambia de foto cada 3 segundos con un fundido suave.
   const fotos = Array.from(document.querySelectorAll<HTMLImageElement>('.hero-slide'));
 
   if (fotos.length > 1) {
@@ -84,7 +84,7 @@ const slides = [
         const siguiente = (actual + 1) % fotos.length;
         const lista = fotos[siguiente].complete && fotos[siguiente].naturalWidth > 0;
         if (lista) mostrar(siguiente); // si aún no terminó de cargar, espera al próximo turno
-      }, 6000);
+      }, 3000);
     };
 
     if (document.readyState === 'complete') iniciar();
