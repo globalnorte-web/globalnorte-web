@@ -1,11 +1,31 @@
 ---
 import { siteData } from '../data/company';
+
+// Fotos del carrusel de la portada. La primera se carga de inmediato; las demás, después.
+// Para agregar otra: súbela a public/nosotros/ y suma una línea aquí.
+const slides = [
+  { src: '/nosotros/despacho-geomembranas.jpg', alt: 'Despacho de geomembranas HDPE Grupo Global Norte' },
+  { src: '/nosotros/descarga-geomembrana-hdpe-camion-grua-geotextil.jpg', alt: 'Descarga de rollos de geomembrana HDPE con camión grúa sobre geotextil en obra' },
+  { src: '/nosotros/despacho-rollos-geomembrana-hdpe-camion-grua.jpg', alt: 'Camión grúa junto a rollos de geomembrana HDPE listos para su despacho' },
+  { src: '/nosotros/almacen-rollos-geosinteticos-embalados.jpg', alt: 'Almacén con rollos de geosintéticos embalados' },
+  { src: '/nosotros/rollos-geosinteticos-apilados-obra.jpg', alt: 'Rollos de geosintéticos apilados en obra para su instalación' },
+];
 ---
 
 <section class="relative bg-slate-800 text-white pt-24 pb-32 overflow-hidden border-b-8 border-blue-500">
-  <!-- Fondo con superposición -->
+  <!-- Fondo con superposición: carrusel de fotos -->
   <div class="absolute inset-0 z-0">
-    <img src="/nosotros/despacho-geomembranas.jpg" alt="Despacho de geomembranas HDPE Grupo Global Norte" class="w-full h-full object-cover opacity-20 mix-blend-luminosity" />
+    {slides.map((s, i) => (
+      <img
+        src={i === 0 ? s.src : undefined}
+        data-src={i === 0 ? undefined : s.src}
+        alt={s.alt}
+        aria-hidden={i === 0 ? 'false' : 'true'}
+        fetchpriority={i === 0 ? 'high' : undefined}
+        decoding="async"
+        class={`hero-slide absolute inset-0 w-full h-full object-cover mix-blend-luminosity transition-opacity duration-1000 ${i === 0 ? 'opacity-20' : 'opacity-0'}`}
+      />
+    ))}
   </div>
 
   <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
@@ -31,3 +51,43 @@ import { siteData } from '../data/company';
     </div>
   </div>
 </section>
+
+<script>
+  // Carrusel del fondo: cambia de foto cada 6 segundos con un fundido suave.
+  const fotos = Array.from(document.querySelectorAll<HTMLImageElement>('.hero-slide'));
+
+  if (fotos.length > 1) {
+    const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let actual = 0;
+
+    const mostrar = (n: number) => {
+      fotos.forEach((img, i) => {
+        const activa = i === n;
+        img.classList.toggle('opacity-20', activa);
+        img.classList.toggle('opacity-0', !activa);
+        img.setAttribute('aria-hidden', String(!activa));
+      });
+      actual = n;
+    };
+
+    const iniciar = () => {
+      // Si la persona pidió menos movimiento, se queda la primera foto y no se descargan las demás
+      if (sinMovimiento) return;
+
+      // Recién ahora se descargan las otras fotos, para no frenar la carga de la portada
+      fotos.forEach((img) => {
+        const ruta = img.dataset.src;
+        if (ruta) img.src = ruta;
+      });
+
+      window.setInterval(() => {
+        const siguiente = (actual + 1) % fotos.length;
+        const lista = fotos[siguiente].complete && fotos[siguiente].naturalWidth > 0;
+        if (lista) mostrar(siguiente); // si aún no terminó de cargar, espera al próximo turno
+      }, 6000);
+    };
+
+    if (document.readyState === 'complete') iniciar();
+    else window.addEventListener('load', iniciar, { once: true });
+  }
+</script>

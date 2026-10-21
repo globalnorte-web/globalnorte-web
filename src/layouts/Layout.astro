@@ -60,6 +60,16 @@ const localBusinessJsonLd = {
   "knowsAbout": ["Geosintéticos", "Geomembranas HDPE", "Tuberías HDPE y PVC", "Equipos de termofusión"]
 };
 
+// Nombre del sitio para Google (solo se agrega en la portada)
+const esInicio = Astro.url.pathname === '/';
+const webSiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": siteData.name,
+  "alternateName": ["Grupo Globalnorte"],
+  "url": "https://grupoglobalnorte.com/"
+};
+
 // Datos que el chatbot necesita, tomados de la MISMA fuente que el footer
 // (así nunca vuelven a desincronizarse el horario o el teléfono).
 const chatPhone = siteData.contact.phone || "51960457147";
@@ -78,6 +88,7 @@ const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning}
         <meta name="author" content={siteData.name} />
         <link rel="canonical" href={canonicalUrl} />
         <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
+        {esInicio && <script type="application/ld+json" set:html={JSON.stringify(webSiteJsonLd)} />}
         <meta name="keywords" content="geosinteticos, geomembranas HDPE, geotextiles, geomallas, geoceldas, tuberia HDPE, tuberia PVC, equipos de termofusion, Cajamarca, mineria, agro, infraestructura" />
 
         <!-- OpenGraph / Facebook / WhatsApp / LinkedIn -->
