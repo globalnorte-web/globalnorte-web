@@ -5,8 +5,8 @@ import Header from '../components/Header.astro';
 
 const { title = siteData.title, description = siteData.description } = Astro.props;
 
-// Usamos el logo que subiste para que aparezca al compartir el enlace
-const ogImage = "/logo.png";
+// Imagen que aparece al compartir el enlace (1200x630, logo sobre fondo blanco)
+const ogImage = "/og-image.png";
 
 // URL canónica siempre con el dominio real (evita contenido duplicado con *.vercel.app)
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://grupoglobalnorte.com').href;
@@ -79,7 +79,7 @@ const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning}
 <html lang="es">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         <!-- SEO Básico -->
