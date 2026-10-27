@@ -1,0 +1,97 @@
+---
+import { siteData } from '../data/company';
+
+// Fotos y video de la sección. Los archivos van en public/envios/
+const video = {
+  src: '/envios/carga-rollos-geomembrana-camion-grua-plataforma.mp4',
+  poster: '/envios/carga-rollos-geomembrana-camion-grua-plataforma.jpg',
+  descripcion: 'Video de carga de rollos de geomembrana HDPE con camión grúa para su envío a obra',
+};
+
+const fotos = [
+  {
+    src: '/envios/despacho-rollos-geomembrana-tracto-trailer-camion-grua.jpg',
+    alt: 'Camión grúa y tracto con remolque cargado con rollos de geomembrana HDPE en un despacho a obra',
+    ancho: 1920,
+    alto: 1080,
+  },
+  {
+    src: '/envios/envio-tuberia-hdpe-tracto-camion-plataforma.jpg',
+    alt: 'Tracto camión con remolque de plataforma transportando tubería HDPE',
+    ancho: 1920,
+    alto: 1080,
+  },
+  {
+    src: '/envios/descarga-rollo-geomembrana-hdpe-camion-grua-obra.jpg',
+    alt: 'Camión grúa descargando un rollo de geomembrana HDPE sobre geotextil en obra',
+    ancho: 2576,
+    alto: 1190,
+  },
+];
+
+const pasos = [
+  { numero: '1', titulo: 'Cotiza', texto: 'Agrega tus productos desde el catálogo o escríbenos por WhatsApp.' },
+  { numero: '2', titulo: 'Coordina', texto: 'Nuestro asesor confirma contigo las cantidades y el despacho a tu obra.' },
+  { numero: '3', titulo: 'Recibe', texto: 'Enviamos tu pedido a la dirección de tu proyecto, en cualquier región del Perú.' },
+];
+---
+
+<section id="envios" class="py-20 bg-white border-t border-slate-100">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-2 block">Cobertura nacional</span>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">Envíos a todo el Perú</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Llevamos geomembranas, geotextiles, tuberías HDPE/PVC y equipos de termofusión hasta tu obra, estés donde estés.
+      </p>
+    </div>
+
+    <!-- Video + fotos -->
+    <div class="grid sm:grid-cols-2 gap-4 md:gap-6 mb-14">
+      <div class="aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-900">
+        <video
+          controls
+          preload="none"
+          playsinline
+          poster={video.poster}
+          aria-label={video.descripcion}
+          class="w-full h-full object-cover"
+        >
+          <source src={video.src} type="video/mp4" />
+          Tu navegador no puede reproducir este video.
+        </video>
+      </div>
+
+      {fotos.map((f) => (
+        <div class="aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-200">
+          <img
+            src={f.src}
+            alt={f.alt}
+            width={f.ancho}
+            height={f.alto}
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      ))}
+    </div>
+
+    <!-- Cómo funciona -->
+    <div class="grid md:grid-cols-3 gap-4 md:gap-6 mb-12">
+      {pasos.map((p) => (
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-blue-500 text-white font-black mb-4">{p.numero}</span>
+          <h3 class="text-lg font-black text-slate-900 mb-2">{p.titulo}</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">{p.texto}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center">
+      <a href={siteData.socials.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all shadow-lg shadow-blue-500/30">
+        Cotizar mi envío por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>

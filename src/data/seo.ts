@@ -79,7 +79,7 @@ export const contenidoPorProducto: Record<
     intro: [
       "La Geomembrana HDPE Lisa GM13 de Grupo Global Norte se fabrica bajo la norma GRI-GM13, la especificación que fija las propiedades mínimas de las geomembranas lisas de polietileno de alta densidad. Está pensada para obras donde una falla de impermeabilización sería costosa, como pads de lixiviación, relaves y rellenos sanitarios.",
       "Se suministra en espesores de 0.75 a 3.0 mm, con rollos de 7 a 8 m de ancho. El espesor adecuado depende del diseño de cada obra y lo define el ingeniero proyectista; si tienes dudas, nuestro asesor te orienta por WhatsApp.",
-      "Atendemos en Cajamarca. Agrega la geomembrana a tu cotización por m² o descarga la ficha técnica GRI-GM13 en PDF desde esta misma página.",
+      "Atendemos desde Cajamarca y hacemos envíos a todo el Perú. Agrega la geomembrana a tu cotización por m² o descarga la ficha técnica GRI-GM13 en PDF desde esta misma página.",
     ],
     enlaces: [
       { href: "/producto/geotextil-no-tejido/", texto: "Geotextil No Tejido: protección contra punzonamiento bajo la geomembrana" },
@@ -106,7 +106,7 @@ export const contenidoPorProducto: Record<
       },
       {
         q: "¿Dónde comprar geomembrana HDPE en Cajamarca?",
-        a: "En Grupo Global Norte. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.",
+        a: "En Grupo Global Norte, con envíos a todo el Perú. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.",
       },
     ],
   },
@@ -141,7 +141,7 @@ export const contenidoPorProducto: Record<
       },
       {
         q: "¿Dónde comprar geomembrana para reservorio en Cajamarca?",
-        a: "En Grupo Global Norte. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.",
+        a: "En Grupo Global Norte, con envíos a todo el Perú. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.",
       },
     ],
   },
