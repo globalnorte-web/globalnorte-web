@@ -1,14 +1,15 @@
 ---
 import { siteData } from '../data/company';
 
-// Fotos y video de la sección. Los archivos van en public/envios/
-const video = {
-  src: '/envios/carga-rollos-geomembrana-camion-grua-plataforma.mp4',
-  poster: '/envios/carga-rollos-geomembrana-camion-grua-plataforma.jpg',
-  descripcion: 'Video de carga de rollos de geomembrana HDPE con camión grúa para su envío a obra',
-};
-
+// Fotos de la sección. Los archivos van en public/envios/
+// La primera se muestra grande (ancho completo); las otras dos, una al lado de la otra.
 const fotos = [
+  {
+    src: '/envios/descarga-rollo-geomembrana-hdpe-camion-grua-obra.jpg',
+    alt: 'Camión grúa descargando un rollo de geomembrana HDPE sobre geotextil en obra',
+    ancho: 2576,
+    alto: 1190,
+  },
   {
     src: '/envios/despacho-rollos-geomembrana-tracto-trailer-camion-grua.jpg',
     alt: 'Camión grúa y tracto con remolque cargado con rollos de geomembrana HDPE en un despacho a obra',
@@ -20,12 +21,6 @@ const fotos = [
     alt: 'Tracto camión con remolque de plataforma transportando tubería HDPE',
     ancho: 1920,
     alto: 1080,
-  },
-  {
-    src: '/envios/descarga-rollo-geomembrana-hdpe-camion-grua-obra.jpg',
-    alt: 'Camión grúa descargando un rollo de geomembrana HDPE sobre geotextil en obra',
-    ancho: 2576,
-    alto: 1190,
   },
 ];
 
@@ -46,24 +41,10 @@ const pasos = [
       </p>
     </div>
 
-    <!-- Video + fotos -->
+    <!-- Fotos -->
     <div class="grid sm:grid-cols-2 gap-4 md:gap-6 mb-14">
-      <div class="aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-900">
-        <video
-          controls
-          preload="none"
-          playsinline
-          poster={video.poster}
-          aria-label={video.descripcion}
-          class="w-full h-full object-cover"
-        >
-          <source src={video.src} type="video/mp4" />
-          Tu navegador no puede reproducir este video.
-        </video>
-      </div>
-
-      {fotos.map((f) => (
-        <div class="aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-200">
+      {fotos.map((f, i) => (
+        <div class={`${i === 0 ? 'sm:col-span-2 aspect-video sm:aspect-[21/9]' : 'aspect-video'} rounded-2xl overflow-hidden shadow-lg bg-slate-200`}>
           <img
             src={f.src}
             alt={f.alt}
