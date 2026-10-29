@@ -72,12 +72,67 @@ const webSiteJsonLd = {
 
 // Datos que el chatbot necesita, tomados de la MISMA fuente que el footer
 // (así nunca vuelven a desincronizarse el horario o el teléfono).
-const chatPhone = siteData.contact.phone || "51960457147";
+// Respaldo actualizado al número vigente (antes: 51960457147).
+const chatPhone = siteData.contact.phone || "51953867500";
 const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning} y de ${siteData.schedule.afternoon}`;
 ---
 
 <html lang="es-PE">
     <head>
+        <!-- ===== Google Analytics 4 · Grupo Global Norte ===== -->
+        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-9ZZMD5H1WV"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          if (!window.__gnGA4) {
+            window.__gnGA4 = true;
+            gtag('js', new Date());
+            gtag('config', 'G-9ZZMD5H1WV');
+
+            // Producto consultado, leído del texto prellenado de WhatsApp ("...sobre: <Producto>")
+            var gnProducto = function (href) {
+              try {
+                var t = new URL(href, location.href).searchParams.get('text') || '';
+                var m = t.match(/sobre:\s*(.+)$/i);
+                return m ? m[1].trim().slice(0, 80) : '(general)';
+              } catch (e) { return '(general)'; }
+            };
+
+            // EVENTO CLAVE 1: clic en WhatsApp (incluye el enlace del chatbot) · EXTRA: clic en teléfono
+            document.addEventListener('click', function (e) {
+              var a = e.target.closest && e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"], a[href^="tel:"]');
+              if (!a) return;
+              if (a.closest('[data-gn-cotizacion]')) return; // el botón final del panel se mide como generate_lead
+              var boton = (a.innerText || a.getAttribute('aria-label') || '').trim().slice(0, 60);
+              if (a.href.indexOf('tel:') === 0) {
+                gtag('event', 'llamada_telefono', { boton: boton, pagina: location.pathname, transport_type: 'beacon' });
+                return;
+              }
+              gtag('event', 'contacto_whatsapp', { producto: gnProducto(a.href), boton: boton, pagina: location.pathname, transport_type: 'beacon' });
+            }, true);
+
+            // EVENTO CLAVE 2: cotización enviada desde el panel (se llama desde QuoteDrawer.astro)
+            window.gnCotizacionEnviada = function (d) {
+              d = d || {};
+              gtag('event', 'generate_lead', {
+                metodo: 'panel_cotizacion',
+                cantidad_productos: d.cantidadProductos || 0,
+                productos: (d.productos || []).join(', ').slice(0, 100),
+                ciudad_obra: d.ciudad || '',
+                tipo_documento: d.tipoDoc || '',
+                adjunto_plano: d.adjunto ? 'si' : 'no',
+                transport_type: 'beacon'
+              });
+            };
+
+            // Evento de apoyo (no clave): producto agregado a la cotización
+            window.gnAgregadoACotizacion = function (producto, origen) {
+              gtag('event', 'agregar_a_cotizacion', { producto: producto || '', origen: origen || 'catalogo' });
+            };
+          }
+        </script>
+        <!-- ===== Fin Google Analytics 4 ===== -->
+
         <meta charset="utf-8" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

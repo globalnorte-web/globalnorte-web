@@ -1,7 +1,8 @@
 ---
 import { siteData } from '../data/company';
 
-const cleanPhone = siteData.contact.phone || "51960457147";
+// Respaldo actualizado al número vigente (antes: 51960457147)
+const cleanPhone = siteData.contact.phone || "51953867500";
 ---
 
 <!-- Botón Flotante (Badge) -->
@@ -141,7 +142,7 @@ const cleanPhone = siteData.contact.phone || "51960457147";
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
         Revisar y Enviar Cotización
       </button>
-      <button id="open-whatsapp-btn" type="button" class="hidden w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-500/30 cursor-pointer text-sm uppercase tracking-wider">
+      <button id="open-whatsapp-btn" type="button" data-gn-cotizacion class="hidden w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-500/30 cursor-pointer text-sm uppercase tracking-wider">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
         Abrir WhatsApp y Enviar
       </button>
@@ -179,7 +180,7 @@ const cleanPhone = siteData.contact.phone || "51960457147";
 
   let pendingWhatsappUrl = '';
 
-  const cleanPhone = scriptEl ? scriptEl.getAttribute('data-phone') : "51960457147";
+  const cleanPhone = scriptEl ? scriptEl.getAttribute('data-phone') : "51953867500";
 
   // --- Persistencia del carrito entre páginas (localStorage) ---
   const CART_STORAGE_KEY = 'globalnorte_quote_cart';
@@ -299,6 +300,12 @@ const cleanPhone = siteData.contact.phone || "51960457147";
     const detail = e.detail;
     if (!detail) return;
 
+    // [GA4] Evento de apoyo: qué producto se agregó y desde dónde.
+    // Las estimaciones de la calculadora llegan con customInfo; las del catálogo, sin él.
+    if (window.gnAgregadoACotizacion) {
+      window.gnAgregadoACotizacion(detail.name, detail.customInfo ? 'calculadora' : 'catalogo');
+    }
+
     const existing = cart.find(i => i.id === detail.id);
 
     const addQty = detail.quantity && detail.quantity > 0 ? detail.quantity : 1;
@@ -389,6 +396,18 @@ const cleanPhone = siteData.contact.phone || "51960457147";
   // Paso 2: recién aquí se abre WhatsApp de verdad, y luego se vacía el carrito
   if (openWhatsappBtn) {
     openWhatsappBtn.addEventListener('click', () => {
+      // [GA4] EVENTO CLAVE: cotización enviada. Se registra ANTES de vaciar el carrito.
+      if (pendingWhatsappUrl && window.gnCotizacionEnviada) {
+        const docNumGA = document.getElementById('field-doc-number')?.value.trim();
+        window.gnCotizacionEnviada({
+          cantidadProductos: cart.length,
+          productos: cart.map(item => item.name),
+          ciudad: document.getElementById('field-city')?.value.trim() || '',
+          tipoDoc: docNumGA ? (document.getElementById('field-doc-type')?.value || '') : '',
+          adjunto: !!attachedFileName
+        });
+      }
+
       if (pendingWhatsappUrl) window.open(pendingWhatsappUrl, '_blank');
 
       // La cotización ya se envió: vaciamos el carrito y volvemos a la vista principal
