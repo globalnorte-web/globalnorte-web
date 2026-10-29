@@ -56,7 +56,7 @@ const localBusinessJsonLd = {
       "closes": "19:00"
     }
   ],
-  "areaServed": "Perú",
+  "areaServed": { "@type": "Country", "name": "Perú" },
   "knowsAbout": ["Geosintéticos", "Geomembranas HDPE", "Tuberías HDPE y PVC", "Equipos de termofusión"]
 };
 
@@ -76,7 +76,7 @@ const chatPhone = siteData.contact.phone || "51960457147";
 const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning} y de ${siteData.schedule.afternoon}`;
 ---
 
-<html lang="es">
+<html lang="es-PE">
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/png" href="/favicon.png" />

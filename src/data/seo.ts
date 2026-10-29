@@ -4,64 +4,64 @@
 
 export const seoPorProducto: Record<string, { title: string; description: string }> = {
   "geomembrana-hdpe-lisa-nominal": {
-    title: "Geomembrana HDPE Lisa en Cajamarca | Grupo Global Norte",
-    description: "Geomembrana HDPE lisa de 0.75 a 3.0 mm para reservorios agrícolas, canales y estanques de acuicultura. Cotiza por m² con Grupo Global Norte en Cajamarca.",
+    title: "Geomembrana HDPE Lisa en Perú | Grupo Global Norte",
+    description: "Venta de geomembrana HDPE lisa de 0.75 a 3.0 mm para reservorios, canales y acuicultura. Envíos a todo el Perú. Cotiza por m² con Grupo Global Norte.",
   },
   "geomembrana-hdpe-lisa-gm13": {
-    title: "Geomembrana HDPE GM13 en Cajamarca | Grupo Global Norte",
-    description: "Geomembrana HDPE lisa GRI-GM13 de 0.75 a 3.0 mm para minería, pads de lixiviación y rellenos sanitarios. Ficha técnica y cotización en Cajamarca.",
+    title: "Geomembrana HDPE GM13 en Perú | Grupo Global Norte",
+    description: "Venta de geomembrana HDPE GM13 (norma GRI-GM13) de 0.75 a 3.0 mm para minería y rellenos sanitarios. Envíos a todo el Perú. Ficha técnica y cotización.",
   },
   "geotextil-tejido": {
-    title: "Geotextil Tejido en Cajamarca | Grupo Global Norte",
-    description: "Geotextil tejido de alta resistencia a la tensión para estabilizar subrasantes y reforzar muros de contención. Cotiza por m² en Cajamarca.",
+    title: "Geotextil Tejido en Perú | Grupo Global Norte",
+    description: "Venta de geotextil tejido de alta resistencia para estabilizar subrasantes y reforzar muros de contención. Envíos a todo el Perú. Cotiza por m².",
   },
   "geotextil-no-tejido": {
-    title: "Geotextil No Tejido en Cajamarca | Grupo Global Norte",
-    description: "Geotextil no tejido para filtración, subdrenaje y protección de geomembranas contra punzonamiento. Cotiza por m² con Grupo Global Norte en Cajamarca.",
+    title: "Geotextil No Tejido en Perú | Grupo Global Norte",
+    description: "Venta de geotextil no tejido para filtración, subdrenaje y protección de geomembranas. Envíos a todo el Perú. Cotiza por m² con Grupo Global Norte.",
   },
   "geomalla-uniaxial": {
-    title: "Geomalla Uniaxial en Cajamarca | Grupo Global Norte",
-    description: "Geomalla uniaxial para muros de tierra estabilizados y refuerzo de taludes, con alta resistencia longitudinal y baja fluencia. Cotiza en Cajamarca.",
+    title: "Geomalla Uniaxial en Perú | Grupo Global Norte",
+    description: "Venta de geomalla uniaxial para muros de tierra estabilizados y refuerzo de taludes, con alta resistencia longitudinal. Envíos a todo el Perú. Cotiza.",
   },
   "geomalla-biaxial": {
-    title: "Geomalla Biaxial en Cajamarca | Grupo Global Norte",
-    description: "Geomalla biaxial para estabilizar bases de carreteras y plataformas sobre suelos blandos, con mejor trabazón de agregados. Cotiza en Cajamarca.",
+    title: "Geomalla Biaxial en Perú | Grupo Global Norte",
+    description: "Venta de geomalla biaxial para estabilizar bases de carreteras y plataformas sobre suelos blandos. Envíos a todo el Perú. Cotiza con Grupo Global Norte.",
   },
   "geocelda-perforada": {
-    title: "Geocelda Perforada en Cajamarca | Grupo Global Norte",
-    description: "Geocelda perforada para control de erosión en taludes y revestimiento de canales, con drenaje lateral. Cotiza por m² con Grupo Global Norte.",
+    title: "Geocelda Perforada en Perú | Grupo Global Norte",
+    description: "Venta de geocelda perforada para control de erosión en taludes y revestimiento de canales, con drenaje lateral. Envíos a todo el Perú. Cotiza por m².",
   },
   "geocelda-sin-perforar": {
-    title: "Geocelda Sin Perforar en Cajamarca | Grupo Global Norte",
-    description: "Geocelda sin perforar, de paredes continuas, para muros de retención y protección costera. Cotiza por m² con Grupo Global Norte en Cajamarca.",
+    title: "Geocelda Sin Perforar en Perú | Grupo Global Norte",
+    description: "Venta de geocelda sin perforar, de paredes continuas, para muros de retención y protección costera. Envíos a todo el Perú. Cotiza por m².",
   },
   "tuberia-hdpe-iso4427": {
-    title: "Tubería HDPE NTP ISO 4427 en Cajamarca | Grupo Global Norte",
-    description: "Tubería HDPE NTP ISO 4427-2 en PE 80 y PE 100, de 16 a 1000 mm, para agua potable y sistemas contra incendios. Cotiza por metro en Cajamarca.",
+    title: "Tubería HDPE NTP ISO 4427 en Perú | Grupo Global Norte",
+    description: "Venta de tubería HDPE NTP ISO 4427-2 en PE 80 y PE 100, de 16 a 1000 mm, para agua potable y redes contra incendios. Envíos a todo el Perú. Cotiza.",
   },
   "tuberia-hdpe-astm-f714": {
-    title: "Tubería HDPE ASTM F714 en Cajamarca | Grupo Global Norte",
-    description: "Tubería HDPE ASTM F714 en PE 3608 y PE 4710, de 4 a 36 pulgadas, para relaves, pulpas y trabajos mineros pesados. Cotiza por metro en Cajamarca.",
+    title: "Tubería HDPE ASTM F714 en Perú | Grupo Global Norte",
+    description: "Venta de tubería HDPE ASTM F714 en PE 3608 y PE 4710, de 4 a 36 pulgadas, para relaves, pulpas y minería. Envíos a todo el Perú. Cotiza por metro.",
   },
   "tuberia-pvc-agua": {
-    title: "Tubería PVC para Agua en Cajamarca | Grupo Global Norte",
-    description: "Tubería PVC para agua a presión, inmune a la corrosión, para distribución urbana y redes de riego. Cotiza por metro con Grupo Global Norte en Cajamarca.",
+    title: "Tubería PVC para Agua en Perú | Grupo Global Norte",
+    description: "Venta de tubería PVC para agua a presión, inmune a la corrosión, para distribución urbana y riego. Envíos a todo el Perú. Cotiza por metro.",
   },
   "tuberia-pvc-desague": {
-    title: "Tubería PVC para Desagüe en Cajamarca | Grupo Global Norte",
-    description: "Tubería PVC para desagüe y alcantarillado, resistente a gases y sulfuros, con unión campana-espiga. Cotiza por metro en Cajamarca.",
+    title: "Tubería PVC para Desagüe en Perú | Grupo Global Norte",
+    description: "Venta de tubería PVC para desagüe y alcantarillado, resistente a gases y sulfuros, con unión campana-espiga. Envíos a todo el Perú. Cotiza por metro.",
   },
   "equipo-cuna": {
-    title: "Máquina Cuña Caliente en Cajamarca | Grupo Global Norte",
-    description: "Máquina de cuña caliente para soldar geomembranas con costura doble y canal de prueba, con control digital. Cotiza con Grupo Global Norte en Cajamarca.",
+    title: "Máquina Cuña Caliente en Perú | Grupo Global Norte",
+    description: "Venta de máquina de cuña caliente para soldar geomembranas con costura doble y canal de prueba. Envíos a todo el Perú. Cotiza con Grupo Global Norte.",
   },
   "equipo-pistola": {
-    title: "Pistola de Calor Industrial en Cajamarca | Grupo Global Norte",
-    description: "Pistola de calor industrial con control electrónico de temperatura para parches, detalles y reparaciones en geomembranas. Cotiza en Cajamarca.",
+    title: "Pistola de Calor Industrial en Perú | Grupo Global Norte",
+    description: "Venta de pistola de calor industrial con control electrónico de temperatura para parches y reparaciones de geomembrana. Envíos a todo el Perú. Cotiza.",
   },
   "equipo-extrusora": {
-    title: "Soldadora Extrusora Manual en Cajamarca | Grupo Global Norte",
-    description: "Soldadora extrusora manual para botas de tubería, remates y reparaciones de geomembrana, con aporte continuo. Cotiza con Grupo Global Norte en Cajamarca.",
+    title: "Soldadora Extrusora Manual en Perú | Grupo Global Norte",
+    description: "Venta de soldadora extrusora manual para botas de tubería, remates y reparaciones de geomembrana. Envíos a todo el Perú. Cotiza con Grupo Global Norte.",
   },
 };
 
@@ -105,8 +105,8 @@ export const contenidoPorProducto: Record<
         a: "Los paños de geomembrana se unen por termofusión. Para paños grandes se usa la máquina de cuña caliente, y para remates, botas de tubería y reparaciones, la soldadora extrusora. Además, suele colocarse un geotextil no tejido como capa de protección contra punzonamiento.",
       },
       {
-        q: "¿Dónde comprar geomembrana HDPE en Cajamarca?",
-        a: "En Grupo Global Norte, con envíos a todo el Perú. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.",
+        q: "¿Dónde comprar geomembrana HDPE en Perú?",
+        a: "En Grupo Global Norte, con sede en Cajamarca y envíos a todo el Perú. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.",
       },
     ],
   },
@@ -140,8 +140,8 @@ export const contenidoPorProducto: Record<
         a: "Por termofusión. Para paños grandes se usa la máquina de cuña caliente, y para remates y reparaciones, la soldadora extrusora.",
       },
       {
-        q: "¿Dónde comprar geomembrana para reservorio en Cajamarca?",
-        a: "En Grupo Global Norte, con envíos a todo el Perú. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.",
+        q: "¿Dónde comprar geomembrana para reservorio en Perú?",
+        a: "En Grupo Global Norte, con sede en Cajamarca y envíos a todo el Perú. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.",
       },
     ],
   },

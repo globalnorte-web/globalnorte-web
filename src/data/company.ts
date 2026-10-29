@@ -2,8 +2,8 @@ export const siteData = {
   name: "Grupo Global Norte",
   razonSocial: "EG GLOBALNORTE E.I.R.L.",
   ruc: "20600306040",
-  title: "Grupo Global Norte | Geosintéticos y Ferretería en Cajamarca",
-  description: "Comercialización (importación, compra y venta) de geosintéticos y productos de ferretería en Cajamarca, Perú.",
+   title: "Grupo Global Norte | Geosintéticos y Tuberías HDPE en Perú",
+ description: "Comercialización (importación, compra y venta) de geosintéticos y productos de ferretería en Cajamarca, con envíos a todo el Perú.",
   contact: {
     phone: "51953867500", // con código de país (Perú = 51); se usa en todos los enlaces wa.me
     displayPhone: "953 867 500",
