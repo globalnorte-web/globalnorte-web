@@ -1,0 +1,71 @@
+---
+// src/pages/catalogo.astro  →  https://grupoglobalnorte.com/catalogo
+import Layout from '../layouts/Layout.astro';
+import { siteData } from '../data/company';
+
+const pdf = '/catalogo/catalogo-grupo-global-norte-2026.pdf';
+const phone = siteData.contact.phone || '51953867500';
+const waText = encodeURIComponent('Hola, revisé el catálogo técnico 2026 y quisiera cotizar.');
+
+const secciones = [
+  { titulo: 'Geosintéticos', detalle: 'Geomembranas HDPE (nominal y GM13), geotextiles, geomallas y geoceldas' },
+  { titulo: 'Tuberías', detalle: 'HDPE NTP ISO 4427-2, HDPE ASTM F714 y PVC para agua y desagüe' },
+  { titulo: 'Equipos de termofusión', detalle: 'Cuñas, pistolas y extrusoras' },
+  { titulo: 'Referencia técnica', detalle: 'Guía por sector, propiedades GM13 por espesor y guía de presiones HDPE por SDR' },
+];
+---
+
+<Layout
+  title="Catálogo técnico 2026 | Grupo Globalnorte"
+  description="Descargue el catálogo técnico 2026 de Grupo Globalnorte: geomembranas, geotextiles, geomallas, geoceldas, tuberías HDPE y PVC y equipos de termofusión. Envíos a todo el Perú."
+>
+  <section class="bg-slate-900 text-white">
+    <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Portada -->
+      <a href={pdf} target="_blank" rel="noopener" class="block group">
+        <img
+          src="/catalogo/catalogo-portada.jpg"
+          alt="Portada del Catálogo técnico de productos 2026 de Grupo Globalnorte"
+          width="800" height="1133"
+          class="w-full max-w-sm mx-auto rounded-xl shadow-2xl shadow-blue-900/40 transition-transform duration-300 group-hover:-translate-y-1"
+        />
+      </a>
+
+      <!-- Texto y acciones -->
+      <div>
+        <p class="text-blue-400 font-semibold text-sm mb-2">Edición 2026 · 31 páginas · PDF</p>
+        <h1 class="text-4xl md:text-5xl font-black leading-tight mb-4">Catálogo técnico de productos</h1>
+        <p class="text-slate-300 leading-relaxed mb-8">
+          Especificaciones, aplicaciones y presentaciones de nuestras 17 referencias, con tablas técnicas
+          por espesor y por SDR. Ideal para especificar en obra o adjuntar a su expediente.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a href={pdf} target="_blank" rel="noopener"
+             class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+            Ver catálogo
+          </a>
+          <a href={pdf} download
+             class="border border-slate-500 hover:border-white text-white font-bold py-3 px-6 rounded-xl transition-colors">
+            Descargar PDF (6 MB)
+          </a>
+          <a href={`https://wa.me/${phone}?text=${waText}`} target="_blank" rel="noopener"
+             class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+            Cotizar por WhatsApp
+          </a>
+        </div>
+
+        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Contenido</h2>
+        <ul class="space-y-3">
+          {secciones.map((s) => (
+            <li class="border-l-2 border-blue-500 pl-4">
+              <p class="font-bold">{s.titulo}</p>
+              <p class="text-sm text-slate-400">{s.detalle}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</Layout>

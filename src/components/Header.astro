@@ -1,7 +1,8 @@
 ---
 import { siteData } from '../data/company';
 
-const phone = siteData.contact.phone || "51960457147";
+// Respaldo actualizado al número vigente (antes: 51960457147)
+const phone = siteData.contact.phone || "51953867500";
 ---
 
 <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 text-slate-800 shadow-sm">
@@ -9,7 +10,7 @@ const phone = siteData.contact.phone || "51960457147";
 
     <!-- Logo Agrandado un 50% sobre Fondo Blanco -->
     <a href="/" class="flex items-center group">
-      <img src="/logo-header.png" alt="Grupo Global Norte Logo" class="h-14 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+      <img src="/logo-header.png" alt="Grupo Globalnorte Logo" class="h-14 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
     </a>
 
     <!-- Navegación Principal -->
@@ -17,13 +18,17 @@ const phone = siteData.contact.phone || "51960457147";
       <a href="/" class="hover:text-blue-600 transition-colors">Inicio</a>
       <a href="/#nosotros" class="hover:text-blue-600 transition-colors">Nosotros</a>
       <a href="/#servicios" class="hover:text-blue-600 transition-colors">Servicios</a>
-      <a href="/#catalogo" class="hover:text-blue-600 transition-colors">Catálogo</a>
+      <a href="/#catalogo" class="hover:text-blue-600 transition-colors">Productos</a>
+      <a href="/catalogo" class="hover:text-blue-600 transition-colors flex items-center gap-1.5">
+        Catálogo
+        <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-1.5 py-0.5 rounded">PDF</span>
+      </a>
       <a href="/guias" class="hover:text-blue-600 transition-colors">Guías</a>
     </nav>
 
     <!-- Botón de Contacto -->
     <div class="flex items-center gap-3">
-      <a href={`https://wa.me/${phone}?text=${encodeURIComponent('Hola Grupo Global Norte, deseo realizar una consulta comercial.')}`} target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all shadow-md shadow-blue-500/20">
+      <a href={`https://wa.me/${phone}?text=${encodeURIComponent('Hola Grupo Globalnorte, deseo realizar una consulta comercial.')}`} target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all shadow-md shadow-blue-500/20">
         Contáctanos
       </a>
     </div>
