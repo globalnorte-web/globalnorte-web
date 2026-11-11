@@ -57,7 +57,7 @@ const localBusinessJsonLd = {
     }
   ],
   "areaServed": { "@type": "Country", "name": "Perú" },
-  "knowsAbout": ["Geosintéticos", "Geomembranas HDPE", "Tuberías HDPE y PVC", "Equipos de termofusión"]
+  "knowsAbout": ["Geosintéticos", "Geomembranas HDPE", "Geomallas", "Geobolsas y geotubos", "Tuberías HDPE y PVC", "Gaviones", "Equipos de termofusión"]
 };
 
 // Nombre del sitio para Google (solo se agrega en la portada)
@@ -134,9 +134,11 @@ const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning}
         <!-- ===== Fin Google Analytics 4 ===== -->
 
         <meta charset="utf-8" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <!-- Íconos (nombres nuevos para que Google descargue el logo actual) -->
+        <link rel="icon" type="image/png" sizes="192x192" href="/favicon-gg-192.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-gg-48.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon-gg.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         <!-- SEO Básico -->
@@ -146,7 +148,7 @@ const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning}
         <link rel="canonical" href={canonicalUrl} />
         <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
         {esInicio && <script type="application/ld+json" set:html={JSON.stringify(webSiteJsonLd)} />}
-        <meta name="keywords" content="geosinteticos, geomembranas HDPE, geotextiles, geomallas, geoceldas, tuberia HDPE, tuberia PVC, equipos de termofusion, Cajamarca, mineria, agro, infraestructura" />
+        <meta name="keywords" content="geosinteticos, geomembranas HDPE, geotextiles, geomallas, geoceldas, geobolsas, geotubos, gaviones, tuberia HDPE, tuberia PVC, equipos de termofusion, Peru, mineria, agro, infraestructura" />
 
         <!-- OpenGraph / Facebook / WhatsApp / LinkedIn -->
         <meta property="og:type" content="website" />
@@ -194,7 +196,7 @@ const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning}
             <div id="chat-messages" class="flex-grow p-4 overflow-y-auto bg-slate-50 space-y-3 text-sm flex flex-col">
               <!-- Mensaje de bienvenida -->
               <div class="self-start bg-white border border-slate-200 text-slate-700 p-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%]">
-                ¡Hola! Soy el asistente virtual de <strong>Grupo Globalnorte</strong>. 🧱 <br><br>Puedes preguntarme sobre geosintéticos, tuberías, equipos de termofusión, horarios, ubicación o cómo cotizar. ¿En qué te ayudo hoy?
+                ¡Hola! Soy el asistente virtual de <strong>Grupo Globalnorte</strong>. 🧱 <br><br>Puedes preguntarme sobre geosintéticos, tuberías, gaviones, equipos de termofusión, horarios, ubicación o cómo cotizar. ¿En qué te ayudo hoy?
               </div>
             </div>
 
@@ -279,15 +281,24 @@ const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning}
             chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll
           }
 
-          // BASE DE CONOCIMIENTOS (alineada al catálogo real: geosintéticos, tuberías, equipos)
+          // BASE DE CONOCIMIENTOS (alineada al catálogo real: geosintéticos, tuberías, gaviones, equipos)
+          // El orden importa: gaviones y geobolsas van antes que la regla general de geosintéticos.
           const knowledgeBase = [
             {
               keywords: ["servicios", "que hacen", "a que se dedican", "ofrecen", "productos", "venden"],
-              response: "En Grupo Globalnorte suministramos <strong>Geosintéticos (geomembranas, geotextiles, geomallas, geoceldas), Tuberías HDPE/PVC y Equipos de Termofusión</strong> para minería, agro, infraestructura y vías. ¿Te interesa algo en específico?"
+              response: "En Grupo Globalnorte suministramos <strong>Geosintéticos (geomembranas, geotextiles, geomallas, geoceldas, geobolsas), Tuberías HDPE/PVC, Gaviones y Equipos de Termofusión</strong> para minería, agro, infraestructura y vías. ¿Te interesa algo en específico?"
             },
             {
-              keywords: ["geomembrana", "geotextil", "geomalla", "geocelda", "geosintetico", "geosintético"],
-              response: "Trabajamos con geomembranas HDPE (lisas y bajo norma GRI-GM13), geotextiles tejidos y no tejidos, geomallas uni/biaxiales y geoceldas. Puedes verlas y armar tu cotización directamente en el <strong>catálogo</strong> de esta página. 📋"
+              keywords: ["gavion", "gavión", "gaviones", "colchon", "colchón", "reno", "muro de contencion", "muro de contención", "defensa riberena", "defensa ribereña"],
+              response: "Tenemos <strong>gaviones tipo caja</strong> (de 1.5 × 1 × 1 m a 5 × 1.5 × 1 m, malla 10 × 12 cm) y <strong>gaviones tipo colchón</strong> (4, 5 y 6 × 2 m, en 0.17, 0.23 y 0.30 m de alto), con recubrimiento Zn-5 % Al y opcional PVC. Revisa las medidas en sus fichas del <strong>catálogo</strong> de esta página. 🧱"
+            },
+            {
+              keywords: ["geobolsa", "geotubo", "deshidratacion", "deshidratación", "lodo", "lodos", "relave"],
+              response: "Ofrecemos <strong>geobolsas</strong> para defensas ribereñas y control de erosión, y <strong>geotubos de deshidratación</strong> para lodos de perforación y relaves. Se dimensionan según tu proyecto: cuéntanos el volumen o la longitud y te asesoramos."
+            },
+            {
+              keywords: ["geomembrana", "geotextil", "geomalla", "multiaxial", "triaxial", "geocelda", "geosintetico", "geosintético"],
+              response: "Trabajamos con geomembranas HDPE (lisas y bajo norma GRI-GM13), geotextiles tejidos y no tejidos, geomallas uniaxiales, biaxiales y multiaxiales, y geoceldas. Puedes verlas y armar tu cotización directamente en el <strong>catálogo</strong> de esta página. 📋"
             },
             {
               keywords: ["tuberia", "tubería", "hdpe", "pvc", "agua", "desague", "desagüe"],
@@ -296,6 +307,10 @@ const scheduleText = `${siteData.schedule.days}, de ${siteData.schedule.morning}
             {
               keywords: ["termofusion", "termofusión", "electrofusion", "electrofusión", "soldadora", "cuña", "extrusora", "pistola de calor", "equipo"],
               response: "Tenemos máquinas de cuña caliente, pistolas de calor industrial y soldadoras extrusoras para instalar y reparar geomembranas y tuberías en obra. 🔧"
+            },
+            {
+              keywords: ["catalogo", "catálogo", "pdf", "ficha"],
+              response: "Puedes descargar nuestro <strong>catálogo técnico 2026</strong> en PDF desde <a href=\"/catalogo\" class=\"text-blue-600 font-bold underline\">esta página</a>. 📘"
             },
             {
               keywords: ["ubicacion", "donde", "direccion", "cajamarca", "ciudad", "ubican"],
