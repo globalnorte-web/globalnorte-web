@@ -14,14 +14,14 @@ export function getStaticPaths() {
 }
 
 const { product } = Astro.props;
-const cleanPhone = siteData.contact.phone || "51960457147";
+const cleanPhone = siteData.contact.phone || "51973657190";
 const whatsappMessage = encodeURIComponent(`Hola Grupo Globalnorte, deseo más información sobre:\n\n*${product.name}*`);
 const whatsappUrl = `https://wa.me/${cleanPhone}?text=${whatsappMessage}`;
 const unidad = product.unit || 'unidad';
 
 const seo = seoPorProducto[product.id];
 const extra = contenidoPorProducto[product.id];
-const tituloPagina = seo?.title ?? `${product.name} en Cajamarca | Grupo Globalnorte`;
+const tituloPagina = seo?.title ?? `${product.name} | Venta en Perú | Grupo Globalnorte`;
 const descripcionPagina = seo?.description ?? product.description;
 
 const relatedProducts = catalog
@@ -68,12 +68,67 @@ const propiedadesGM13 = [
 ];
 
 // ---------------------------------------------------------------
+// NUEVO: tablas de tipos y medidas (gaviones y geobolsas)
+// ---------------------------------------------------------------
+type Tabla = { titulo: string; nota: string; head: string[]; rows: string[][]; datos?: { label: string; value: string }[] };
+const tablasProducto: Record<string, Tabla> = {
+  'gavion-caja': {
+    titulo: 'Medidas estándar',
+    nota: 'Incluye alambre de amarre de 2.2 mm. Otras medidas, mallas (8 × 10 cm) y recubrimientos a pedido. Valores referenciales: confirma la especificación con tu asesor.',
+    head: ['Largo × ancho × alto', 'Volumen'],
+    rows: [
+      ['1.5 × 1.0 × 1.0 m', '1.5 m³'], ['2.0 × 1.0 × 1.0 m', '2.0 m³'], ['3.0 × 1.0 × 1.0 m', '3.0 m³'],
+      ['4.0 × 1.0 × 1.0 m', '4.0 m³'], ['5.0 × 1.0 × 1.0 m', '5.0 m³'], ['5.0 × 1.5 × 1.0 m', '7.5 m³'],
+      ['2.0 × 1.0 × 0.5 m', '1.0 m³'], ['3.0 × 1.0 × 0.5 m', '1.5 m³'], ['4.0 × 1.0 × 0.5 m', '2.0 m³'], ['5.0 × 1.0 × 0.5 m', '2.5 m³'],
+    ],
+    datos: [
+      { label: 'Malla', value: 'Hexagonal de doble torsión, 10 × 12 cm' },
+      { label: 'Diámetro de alambre', value: 'Malla 2.7 mm · borde 3.4 mm · amarre 2.2 mm' },
+      { label: 'Recubrimiento', value: 'Zn-5 % Al (Galfan) · opcional con PVC' },
+      { label: 'Norma de referencia', value: 'ASTM A975' },
+    ],
+  },
+  'gavion-colchon': {
+    titulo: 'Medidas estándar',
+    nota: 'Incluye alambre de amarre. Otras medidas, mallas y recubrimientos a pedido. Valores referenciales: confirma la especificación con tu asesor.',
+    head: ['Largo × ancho', 'Alto 0.17 m', 'Alto 0.23 m', 'Alto 0.30 m'],
+    rows: [
+      ['4.0 × 2.0 m', '1.36 m³', '1.84 m³', '2.40 m³'],
+      ['5.0 × 2.0 m', '1.70 m³', '2.30 m³', '3.00 m³'],
+      ['6.0 × 2.0 m', '2.04 m³', '2.76 m³', '3.60 m³'],
+    ],
+    datos: [
+      { label: 'Malla', value: 'Hexagonal de doble torsión, 6 × 8 cm' },
+      { label: 'Diámetro de alambre', value: 'Malla 2.0 – 2.2 mm · borde 2.4 – 2.7 mm' },
+      { label: 'Recubrimiento', value: 'Zn-5 % Al (Galfan) · opcional con PVC' },
+      { label: 'Norma de referencia', value: 'ASTM A975' },
+    ],
+  },
+  'geobolsas-geotubos': {
+    titulo: 'Tipos disponibles',
+    nota: 'Dimensiones y tipo de geotextil según el diseño del proyecto. Para deshidratación recomendamos una prueba previa con una muestra del lodo.',
+    head: ['Tipo', 'Para qué se usa', 'Presentación'],
+    rows: [
+      ['Geobolsa', 'Defensas ribereñas, protección de márgenes, diques temporales y control de erosión', 'Bolsas de geotextil que se llenan en obra con arena o suelo del lugar'],
+      ['Geotubo de deshidratación', 'Lodos de perforación, relaves, lodos industriales y sanitarios', 'Diámetro y largo según el volumen de lodo a tratar'],
+    ],
+  },
+};
+const tabla = tablasProducto[product.id];
+
+// ---------------------------------------------------------------
 // Preguntas frecuentes según la categoría del producto
 // ---------------------------------------------------------------
 const precioRespuesta = 'El precio depende del tipo o espesor, la cantidad y el destino de la obra. Agrega el producto a tu cotización o escríbenos por WhatsApp y te respondemos con el precio actualizado.';
 
 let faqs: { q: string; a: string }[] = [];
-if (product.category === 'Geosintéticos') {
+if (product.id === 'geobolsas-geotubos') {
+  faqs = [
+    { q: '¿Qué diferencia hay entre geobolsa y geotubo?', a: 'La geobolsa se llena en obra con arena o suelo y se usa para proteger riberas y controlar la erosión. El geotubo de deshidratación recibe lodos o relaves bombeados, retiene los sólidos y deja salir el agua.' },
+    { q: '¿Qué medidas tienen?', a: 'Se dimensionan según el proyecto: para defensas, según la altura y longitud de la protección; para deshidratación, según el volumen de lodo. Envíanos los datos de tu obra y te recomendamos la medida.' },
+    { q: '¿Cómo obtengo el precio?', a: precioRespuesta },
+  ];
+} else if (product.category === 'Geosintéticos') {
   faqs = [
     { q: '¿En qué unidad se cotiza?', a: 'Por metro cuadrado (m²). Los rollos vienen en medidas estándar y tu asesor te confirma cuántos rollos necesitas para tu área.' },
     { q: '¿Cómo calculo cuánto material necesito?', a: 'Puedes usar la calculadora de materiales de esta web: ingresas el largo y el ancho del área y te estima el área con margen y la cantidad de rollos. Para geomembranas, recuerda medir el área real a cubrir, incluyendo taludes y zanja de anclaje.' },
@@ -85,6 +140,13 @@ if (product.category === 'Geosintéticos') {
     { q: '¿En qué unidad se cotiza?', a: 'Por metro lineal (m). Indícanos el diámetro, la presión o SDR y los metros que necesitas.' },
     { q: '¿Qué significa el SDR?', a: 'Es la relación entre el diámetro y el espesor de pared. A menor SDR, la pared es más gruesa y la tubería soporta mayor presión.' },
     { q: '¿Cómo consulto el espesor de pared según el diámetro?', a: 'En la calculadora de materiales de esta web eliges la norma, el diámetro y el SDR, y te muestra el espesor mínimo de pared y la presión nominal.' },
+    { q: '¿Cómo obtengo el precio?', a: precioRespuesta },
+  ];
+} else if (product.category === 'Gaviones') {
+  faqs = [
+    { q: '¿En qué unidad se cotiza?', a: 'Por unidad, según la medida del gavión. Indícanos el tipo (caja o colchón), la medida y la cantidad.' },
+    { q: '¿Qué diferencia hay entre gavión caja y gavión colchón?', a: 'El gavión caja tiene 0.5 o 1 m de alto y se usa para levantar muros de contención y defensas. El colchón tiene poca altura (0.17 a 0.30 m) y se usa para revestir cauces y proteger la base de las estructuras contra la socavación.' },
+    { q: '¿Galvanizado o con PVC?', a: 'El recubrimiento Zn-5 % Al es adecuado para la mayoría de obras. El PVC adicional se recomienda en aguas agresivas, contaminadas o con alta abrasión.' },
     { q: '¿Cómo obtengo el precio?', a: precioRespuesta },
   ];
 } else {
@@ -222,6 +284,38 @@ if (extra?.faqs) faqs = [...extra.faqs, ...faqs];
             ))}
           </dl>
           <p class="text-sm text-slate-600 mt-4">Consulta el espesor mínimo de pared por diámetro y SDR en la <a href="/#calculadora" class="text-blue-600 font-bold hover:underline">calculadora de materiales</a>.</p>
+        </section>
+      )}
+
+      <!-- NUEVO: tipos y medidas (gaviones y geobolsas) -->
+      {tabla && (
+        <section class="mb-16">
+          <h2 class="text-2xl font-black text-slate-800 mb-6">{tabla.titulo}</h2>
+          <div class="overflow-x-auto bg-white rounded-xl border border-slate-200">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-800 text-white">
+                <tr>{tabla.head.map((h) => <th class="px-4 py-3 font-bold">{h}</th>)}</tr>
+              </thead>
+              <tbody>
+                {tabla.rows.map((r, i) => (
+                  <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                    {r.map((c, j) => <td class={`px-4 py-3 ${j === 0 ? 'font-bold text-slate-800' : 'text-slate-600'}`}>{c}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {tabla.datos && (
+            <dl class="grid sm:grid-cols-2 gap-3 mt-6">
+              {tabla.datos.map((d) => (
+                <div class="bg-white border border-slate-200 rounded-lg px-4 py-3">
+                  <dt class="text-xs font-bold text-slate-500 uppercase">{d.label}</dt>
+                  <dd class="text-sm text-slate-800 font-medium">{d.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          <p class="text-sm text-slate-600 mt-4">{tabla.nota} Revisa también el <a href="/catalogo" class="text-blue-600 font-bold hover:underline">catálogo técnico 2026</a>.</p>
         </section>
       )}
 

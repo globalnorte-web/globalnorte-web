@@ -111,6 +111,25 @@ export const catalog = [
     ],
     projects: ["Carreteras y Vías", "Minería"]
   },
+  // NUEVO
+  {
+    id: "geomalla-multiaxial",
+    name: "Geomalla Multiaxial",
+    category: "Geosintéticos",
+    image: "/products/geomalla-multiaxial.jpg",
+    unit: "m²",
+    description: "Estabilización en todas las direcciones. Geomalla de polipropileno con aperturas triangulares que confina el agregado y reparte las cargas en varias direcciones, mejorando la capacidad portante de bases y subbases.",
+    features: [
+      "Material: Polipropileno",
+      "Aperturas triangulares",
+      "Rigidez en múltiples direcciones"
+    ],
+    uses: [
+      "Vías, caminos de acceso y vías mineras",
+      "Plataformas de trabajo sobre suelos blandos"
+    ],
+    projects: ["Carreteras y Vías", "Minería", "Edificación e Infraestructura"]
+  },
   {
     id: "geocelda-perforada",
     name: "Geocelda Perforada",
@@ -146,6 +165,25 @@ export const catalog = [
       "Protección costera"
     ],
     projects: ["Edificación e Infraestructura", "Carreteras y Vías"]
+  },
+  // NUEVO
+  {
+    id: "geobolsas-geotubos",
+    name: "Geobolsas y Geotubos",
+    category: "Geosintéticos",
+    image: "/products/geobolsas-geotubos.jpg",
+    unit: "unidad",
+    description: "Contención y deshidratación con geotextil. Contenedores de geotextil tejido de alta tenacidad que se rellenan en obra: protegen riberas frente a la erosión y deshidratan lodos y relaves, reteniendo los sólidos y dejando salir el agua.",
+    features: [
+      "Material: Geotextil tejido PP / PET de alta tenacidad",
+      "Tipos: geobolsa y geotubo de deshidratación",
+      "Dimensiones según diseño"
+    ],
+    uses: [
+      "Defensas ribereñas y control de erosión",
+      "Deshidratación de lodos de perforación y relaves"
+    ],
+    projects: ["Minería", "Edificación e Infraestructura", "Agro y Reservorios"]
   },
 
   // ==========================================
@@ -228,6 +266,46 @@ export const catalog = [
       "Drenaje pluvial"
     ],
     projects: ["Edificación e Infraestructura"]
+  },
+
+  // ==========================================
+  // GAVIONES (NUEVO)
+  // ==========================================
+  {
+    id: "gavion-caja",
+    name: "Gavión Tipo Caja",
+    category: "Gaviones",
+    image: "/products/gavion-caja.jpg",
+    unit: "unidad",
+    description: "Contención flexible y durable. Caja de malla hexagonal de doble torsión en acero galvanizado que se rellena en obra con piedra. La estructura más usada para muros de contención y defensas ribereñas.",
+    features: [
+      "Malla 10 × 12 cm, doble torsión",
+      "Alambre 2.7 mm · borde 3.4 mm",
+      "Recubrimiento Zn-5 % Al · opcional PVC"
+    ],
+    uses: [
+      "Muros de contención y espigones",
+      "Defensas ribereñas y estribos de puentes"
+    ],
+    projects: ["Carreteras y Vías", "Edificación e Infraestructura", "Agro y Reservorios", "Minería"]
+  },
+  {
+    id: "gavion-colchon",
+    name: "Gavión Tipo Colchón",
+    category: "Gaviones",
+    image: "/products/gavion-colchon.jpg",
+    unit: "unidad",
+    description: "Protección contra la socavación. Estructura de poca altura y gran superficie, dividida en celdas y rellena de piedra, que reviste cauces y taludes y protege la base de muros y defensas.",
+    features: [
+      "Malla 6 × 8 cm, doble torsión",
+      "Alto de 0.17, 0.23 o 0.30 m",
+      "Recubrimiento Zn-5 % Al · opcional PVC"
+    ],
+    uses: [
+      "Protección antisocavante y revestimiento de canales",
+      "Defensas ribereñas y protección de taludes"
+    ],
+    projects: ["Carreteras y Vías", "Edificación e Infraestructura", "Agro y Reservorios"]
   },
 
   // ==========================================
